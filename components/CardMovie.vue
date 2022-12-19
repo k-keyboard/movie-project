@@ -28,12 +28,12 @@
 
         <div id="score">
           <div>
-            <img v-if="score > 80" src="~/assets/card-images/Vector.svg" height="19" alt="" />
-            <img v-else-if="score >= 50" src="~/assets/card-images/Vector (1).svg" height="19" alt="" />
+            <img v-if="score*10 > 80" src="~/assets/card-images/Vector.svg" height="19" alt="" />
+            <img v-else-if="score*10 >= 50" src="~/assets/card-images/Vector (1).svg" height="19" alt="" />
             <img v-else src="~/assets/card-images/Vector (2).svg" height="19" alt="" />
           </div>
           <div>
-            {{score}}
+            {{score*10}}
           </div>
           <div>/100</div>
         </div>
@@ -51,12 +51,12 @@ export default {
     
     props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     score: {
-      type: Number,
-      default: 0
+      type: String,
+      default: "0"
     },
     // eslint-disable-next-line vue/require-default-prop
     lable: {
@@ -70,9 +70,9 @@ export default {
       type: String,
       default: "",
     },
+    // eslint-disable-next-line vue/require-default-prop
     year: {
-        type: String,
-        default: "0000",
+        type: Number,
     }
     },
     methods: {
@@ -235,6 +235,9 @@ div#card .ant-col {
     min-width: 150px;
     width: 150px;
     /* display: table-cell; */
+  }
+  div#card {
+    gap: 60px;
   }
 }
 @media only screen and (min-device-width : 300px) and (max-device-width : 787px) {
