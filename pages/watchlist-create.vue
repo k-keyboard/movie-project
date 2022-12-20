@@ -34,7 +34,7 @@ export default {}
   margin: 0 auto !important;
   background: #141414 !important;
 } */
-.watchlist-create  h1 {
+.watchlist-create h1 {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
@@ -71,8 +71,8 @@ export default {}
   color: #141414;
 }
 
-.watchlist-create  input.ant-input,
-.watchlist-create  textarea.ant-input {
+.watchlist-create input.ant-input,
+.watchlist-create textarea.ant-input {
   background: transparent;
   margin-top: 5px;
   color: #e1e1e1;
@@ -94,8 +94,8 @@ export default {}
     /* display: table-cell; */
   }
 }
-@media only screen and (min-device-width : 300px) and (max-device-width : 787px) {
-  .watchlist-create{
+@media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
+  .watchlist-create {
     padding-left: 50px !important;
   }
 }

@@ -10,13 +10,15 @@
       <div class="banner">Watchlists</div>
 
       <div class="components-input-demo-presuffix">
-        <a-input ref="userNameInput" placeholder="Search" @input="push('search')">
+        <a-input
+          ref="userNameInput"
+          placeholder="Search"
+          @input="push('search')"
+        >
           <a-icon
             slot="prefix"
             type="search"
             :style="{ color: 'rgba(217, 217, 217, 0.3)' }"
-            
-            
           />
         </a-input>
         <br />
@@ -40,20 +42,23 @@
         <p>My Lists</p>
         <div>
           <a-button ghost block size="large" @click="push('watchlist-detail')">
-            <img src="~/assets/icon-button/Group 64.svg" alt="" /> 
+            <img src="~/assets/icon-button/Group 64.svg" alt="" />
             Movies by Tom Cruise
-         </a-button>
+          </a-button>
         </div>
       </div>
-      
     </div>
     <div>
       <a-row type="flex">
         <div class="btn-profile">
-          <a-dropdown-button  @click="handleButtonClick" > 
+          <a-dropdown-button @click="handleButtonClick">
             <img src="~/assets/icon-button/32.svg" alt="" />
             GUEST
-            <a-menu slot="overlay" placements="topLeft" @click="handleMenuClick">
+            <a-menu
+              slot="overlay"
+              placements="topLeft"
+              @click="handleMenuClick"
+            >
               <a-menu-item key="1" @click="push('login')">
                 <a-icon type="user" />Login
               </a-menu-item>
@@ -64,7 +69,7 @@
                 <a-icon type="user" />Update Profile
               </a-menu-item>
             </a-menu>
-          </a-dropdown-button >
+          </a-dropdown-button>
         </div>
       </a-row>
     </div>
@@ -73,7 +78,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/require-prop-types
-  props:['search'],
+  props: ['search'],
   methods: {
     onCollapse(collapsed, type) {
       console.log(collapsed, type)
@@ -90,7 +95,6 @@ export default {
     push(path) {
       this.$router.push('/' + path)
     },
-    
   },
 }
 </script>
@@ -100,7 +104,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 /* body{
   margin: 0 auto !important;
-  background: #141414 !important;
+  background: #141414 !important;S
 } */
 aside {
   /* position: relative; */
@@ -138,9 +142,8 @@ aside.ant-layout-sider-zero-width {
 .ant-layout-sider .ant-layout-sider-dark {
   background: rgba(0, 0, 0, 1);
 }
-.my-list{
+.my-list {
   padding: 0 30px;
-
 }
 .my-list hr {
   margin-top: 20px;
@@ -157,7 +160,7 @@ aside.ant-layout-sider-zero-width {
   color: #9a9a9a;
   margin: 19px 5px;
 }
-.my-list div > button{
+.my-list div > button {
   border: none;
   background: transparent;
   font-family: 'Lato';
@@ -167,13 +170,13 @@ aside.ant-layout-sider-zero-width {
   line-height: 19px;
   display: flex;
   align-items: center;
-  color: #E1E1E1;
+  color: #e1e1e1;
   height: 41px;
   border-radius: 6px;
 }
-.my-list div > button:hover{
-  background: rgba(255, 255, 255, .3);
-  color: #E1E1E1;
+.my-list div > button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #e1e1e1;
 }
 .my-list > div > button > img {
   margin-right: 16px;
@@ -246,7 +249,7 @@ ul.ant-menu .ant-btn:hover {
   background: #f56363;
   border: #f56363;
 }
-.ant-row-flex{
+.ant-row-flex {
   /* border: #9a9a9a 1px solid; */
   margin-bottom: 30px;
 }

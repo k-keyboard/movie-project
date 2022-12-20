@@ -57,15 +57,15 @@ export default {
   margin: 0 auto !important;
   background: #141414 !important;
 } */
-.login div:nth-child(1){
-    text-align: center;
+.login div:nth-child(1) {
+  text-align: center;
 }
-.login div:nth-child(1) p{
-    margin-top: 8px;
+.login div:nth-child(1) p {
+  margin-top: 8px;
 }
-.login div:nth-child(1) p > i{
-    margin-right: 15px;
-    font-size: 24px;
+.login div:nth-child(1) p > i {
+  margin-right: 15px;
+  font-size: 24px;
 }
 .login h1 {
   font-family: 'Lato';
@@ -159,8 +159,8 @@ export default {
     /* display: table-cell; */
   }
 }
-@media only screen and (min-device-width : 300px) and (max-device-width : 787px) {
-  .login{
+@media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
+  .login {
     padding-left: 40px !important;
   }
 }

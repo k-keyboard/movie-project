@@ -10,7 +10,10 @@
         class="watchlist-detail"
       >
         <a-row>
-          <p>Movies by Tom Cruise <a-icon type="form" @click="go('watchlist-edit')" /></p>
+          <p>
+            Movies by Tom Cruise
+            <a-icon type="form" @click="go('watchlist-edit')" />
+          </p>
           <p>About this watchlist</p>
           <small> This list lorem ipsum dolor et blah blah blah </small>
         </a-row>
@@ -100,11 +103,11 @@ p {
   color: #e1e1e1;
   margin-bottom: 70px;
 }
-.watchlist-detail #card-total div{
+.watchlist-detail #card-total div {
   margin-right: 40px;
   margin-bottom: 40px;
 }
-.watchlist-detail .ant-col{
+.watchlist-detail .ant-col {
   width: auto;
   padding: 15px;
   display: grid;
@@ -220,20 +223,20 @@ div#card .ant-col {
     width: 150px;
     /* display: table-cell; */
   }
-  .watchlist-detail{
-  padding: 26px 30px;
- }
- .watchlist-detail #card-total div{
-  margin-right: 40px;
-  margin-bottom: 70px;
-}
+  .watchlist-detail {
+    padding: 26px 30px;
+  }
+  .watchlist-detail #card-total div {
+    margin-right: 40px;
+    margin-bottom: 70px;
+  }
 }
 @media only screen and (max-device-width: 420px) {
- .watchlist-detail{
-  padding: 30px 40px ;
- }
- .watchlist-detail #card-total div{
-  margin-bottom: 20px;
-}
+  .watchlist-detail {
+    padding: 30px 40px;
+  }
+  .watchlist-detail #card-total div {
+    margin-bottom: 20px;
+  }
 }
 </style>

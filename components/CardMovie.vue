@@ -1,86 +1,94 @@
 <template>
-  <a-col :flex="1" @click="viewDetail('movie-detail')">
-      <img
-      
-        v-if="lable === 1"
-        id="lable-c"
-        src="~/assets/card-images/check-white.svg"
-        alt=""
-      />
-      <img
-        v-else-if="lable === 2"
-        id="lable-c"
-        src="~/assets/card-images/check-green.svg"
-        alt=""
-      />
-      <img
-        v-else
-        id="lable"
-        src="~/assets/icon-button/Property 1=Default.svg"
-        alt=""
-      />
-      <a-card hoverable style="width: 100%">
-        <img
-          slot="cover"
-          alt="example"
-          :src="image"
-        />
+  <a-col :flex="1" @click="viewDetail(`${id}`)">
+    <img
+      v-if="lable === 1"
+      id="lable-c"
+      src="~/assets/card-images/check-white.svg"
+      alt=""
+    />
+    <img
+      v-else-if="lable === 2"
+      id="lable-c"
+      src="~/assets/card-images/check-green.svg"
+      alt=""
+    />
+    <img
+      v-else
+      id="lable"
+      src="~/assets/icon-button/Property 1=Default.svg"
+      alt=""
+    />
+    <a-card hoverable style="width: 100%">
+      <img id="cover" slot="cover" alt="example" :src="image" />
 
-        <div id="score">
-          <div>
-            <img v-if="score*10 > 80" src="~/assets/card-images/Vector.svg" height="19" alt="" />
-            <img v-else-if="score*10 >= 50" src="~/assets/card-images/Vector (1).svg" height="19" alt="" />
-            <img v-else src="~/assets/card-images/Vector (2).svg" height="19" alt="" />
-          </div>
-          <div>
-            {{score*10}}
-          </div>
-          <div>/100</div>
+      <div id="score">
+        <div>
+          <img
+            v-if="score * 10 > 80"
+            src="~/assets/card-images/Vector.svg"
+            height="19"
+            alt=""
+          />
+          <img
+            v-else-if="score * 10 >= 50"
+            src="~/assets/card-images/Vector (1).svg"
+            height="19"
+            alt=""
+          />
+          <img
+            v-else
+            src="~/assets/card-images/Vector (2).svg"
+            height="19"
+            alt=""
+          />
         </div>
+        <div>
+          {{ score * 10 }}
+        </div>
+        <div>/100</div>
+      </div>
 
-        <p>
-          {{name}} <br>
-          ({{year}})
-        </p>
-      </a-card>
+      <p>
+        {{ name }} <br />
+        ({{ year }})
+      </p>
+    </a-card>
   </a-col>
 </template>
 
 <script>
 export default {
-    
-    props: {
+  props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     score: {
       type: String,
-      default: "0"
+      default: '0',
     },
     // eslint-disable-next-line vue/require-default-prop
     lable: {
-      type: Number
+      type: Number,
     },
     name: {
       type: String,
-      default: "title Default",
+      default: 'title Default',
     },
     image: {
       type: String,
-      default: "",
+      default: '~/assets/card-images/poster3 1.png',
     },
     // eslint-disable-next-line vue/require-default-prop
     year: {
-        type: Number,
-    }
+      type: Number,
     },
-    methods: {
+  },
+  methods: {
     viewDetail(id) {
-      
-      this.$router.push('/' + id)
-    }
+      this.$router.push('/movie-detail/' + id)
     },
+  },
 }
 </script>
 
@@ -172,6 +180,9 @@ div#card .ant-col {
 .ant-card-body {
   padding: 5px;
 }
+.img#cover {
+  border-radius: 4px 4px 0px 0px;
+}
 .ant-col > img#lable {
   position: absolute;
   z-index: 999;
@@ -221,30 +232,31 @@ div#score > div:nth-child(3) {
   margin-bottom: 0px !important;
 }
 div#card .ant-col {
-    max-width: 150px;
-    min-width: 150px;
-    width: 150px;
-    /* display: table-cell; */
-  }
-  div#card {
-    gap: 40px;
-  }
+  max-width: 150px;
+  min-width: 150px;
+  width: 150px;
+  /* display: table-cell; */
+}
+div#card {
+  gap: 40px;
+}
 @media only screen and (min-device-width: 1280px) {
   div#card .ant-col {
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-    /* display: table-cell; */
+    display: table-cell;
   }
   div#card {
     gap: 60px;
   }
 }
-@media only screen and (min-device-width : 300px) and (max-device-width : 787px) {
+@media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
   div#card .ant-col {
     max-width: 160px;
     min-width: 150px;
     width: auto;
+    min-height: expression(parseInt(row.offsetHeight)-43);
     /* display: table-cell; */
   }
   div#card {

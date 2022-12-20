@@ -10,23 +10,22 @@
         class="login"
       >
         <h1>
-            Hello! <br>
-            Please log in or create an account <br>
-            to use the features of this app
+          Hello! <br />
+          Please log in or create an account <br />
+          to use the features of this app
         </h1>
         <div id="components-form-demo-vuex">
           <a-form>
-            
             <div>
-              <label for="Name">Email *</label><br>
+              <label for="Name">Email *</label><br />
               <a-input />
             </div>
             <div>
-              <label for="Name">Password *</label><br>
+              <label for="Name">Password *</label><br />
               <a-input />
             </div>
-            
-            <a-button block size="large"> Create watchlist </a-button><br>
+
+            <a-button block size="large"> Create watchlist </a-button><br />
             <p>or <a @click="push('create-profile')">create an account</a></p>
           </a-form>
         </div>
@@ -36,11 +35,11 @@
 </template>
 <script>
 export default {
-  methods:{
+  methods: {
     push(path) {
       this.$router.push('/' + path)
     },
-  }
+  },
 }
 </script>
 <style>
@@ -51,7 +50,7 @@ export default {
   margin: 0 auto !important;
   background: #141414 !important;
 } */
-.login  h1 {
+.login h1 {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 300;
@@ -59,18 +58,18 @@ export default {
   line-height: 38px;
   color: #e1e1e1;
 }
-.login p{
-    font-family: 'Lato';
-font-style: normal;
-font-weight: 700;
-font-size: 18px;
-line-height: 22px;
+.login p {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
 
-color: #FFFFFF;
+  color: #ffffff;
 }
-.login p a{
-    color:#F33F3F;
-    text-decoration: underline;
+.login p a {
+  color: #f33f3f;
+  text-decoration: underline;
 }
 .login label {
   font-family: 'Lato';
@@ -81,14 +80,12 @@ color: #FFFFFF;
   color: #e1e1e1;
   margin-bottom: 5px !important;
 }
-.login .ant-form.ant-form-horizontal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
-    margin: 0 auto;
-    
-
+.login .ant-form.ant-form-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+  margin: 0 auto;
 }
 .login .ant-btn {
   margin-top: 30px;
@@ -106,12 +103,12 @@ color: #FFFFFF;
   border: #f56363;
   color: #141414;
 }
-.login div{
+.login div {
   width: auto;
   margin: 0 auto;
 }
-.login  input.ant-input,
-.login  textarea.ant-input {
+.login input.ant-input,
+.login textarea.ant-input {
   background: transparent;
   margin-top: 5px;
   color: #e1e1e1;
@@ -127,17 +124,17 @@ color: #FFFFFF;
   border-radius: 6px;
   margin-top: 24px;
 }
-.login{
+.login {
   padding-left: 50px !important;
 }
 @media only screen and (min-device-width: 922px) {
-  .login{
-  padding-left: 30px !important;
-}
-.login div{
-  width: 350px;
-  margin: 0 auto;
-}
+  .login {
+    padding-left: 30px !important;
+  }
+  .login div {
+    width: 350px;
+    margin: 0 auto;
+  }
   div#card .ant-col {
     max-width: 150px;
     min-width: 150px;

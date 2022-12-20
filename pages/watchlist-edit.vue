@@ -21,10 +21,8 @@
             />
           </a-form>
           <label for="Name">Movie</label>
-          <div>
-            
-          </div>
-          <span v-for="n in 3" :key="n" >
+          <div></div>
+          <span v-for="n in 3" :key="n">
             <div id="list-movie">
               <div id="img-card">
                 <img
@@ -40,7 +38,6 @@
             </div>
           </span>
           <a-button id="save" block size="large"> Save </a-button>
-            
         </div>
       </div>
     </a-layout-content>
@@ -87,14 +84,14 @@ export default {}
   color: #e1e1e1;
   margin-bottom: 5px !important;
 }
-.watchlist-edit #remove{
+.watchlist-edit #remove {
   margin: 17px 15px;
   padding: 10px;
   height: 41px;
   font-family: 'Lato';
-font-weight: 400;
-font-size: 16px;
-line-height: 19px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
   color: #e1e1e1 !important;
 }
 #save {
@@ -135,16 +132,15 @@ line-height: 19px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
-.watchlist-edit div#list-movie #img-card > font{
-margin-left: 15px;
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 19px;
+.watchlist-edit div#list-movie #img-card > font {
+  margin-left: 15px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
 
-color: #E1E1E1;
-
+  color: #e1e1e1;
 }
 #components-form-demo-vuex .language-bash {
   max-width: 400px;
