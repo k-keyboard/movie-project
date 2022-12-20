@@ -65,7 +65,7 @@
               <a-menu-item key="2" @click="push('create-profile')">
                 <a-icon type="user" />Create Profile
               </a-menu-item>
-              <a-menu-item key="3">
+              <a-menu-item key="3" @click="push('edit-profile')">
                 <a-icon type="user" />Update Profile
               </a-menu-item>
             </a-menu>
@@ -320,18 +320,5 @@ ul.ant-menu .ant-btn:hover {
   align-content: flex-end;
 
   color: #e1e1e1;
-}
-@media only screen and (min-device-width: 1280px) {
-  div#card .ant-col {
-    max-width: 150px;
-    min-width: 150px;
-    width: 150px;
-    /* display: table-cell; */
-  }
-}
-@media only screen and (min-device-width: 390px) {
-  /* .ant-layout-sider-zero-width-trigger.ant-layout-sider-zero-width-trigger-left {
-     position: fixed; 
-  } */
 }
 </style>

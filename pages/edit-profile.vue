@@ -7,17 +7,13 @@
           background: '#161616',
           minHeight: '100vh',
         }"
-        class="create-profile"
+        class="edit-profile"
       >
-        <h1>
-          Hello! <br />
-          Please log in or create an account <br />
-          to use the features of this app
-        </h1>
+        <h1>Edit profile <a href="#">Log out</a></h1>
         <div id="components-form-demo-vuex">
           <a-form>
             <div>
-              <a-avatar :size="100" icon="user" />
+              <img src="~/assets/icon-button/Ellipse 6.svg" />
               <p>
                 <a-upload
                   name="file"
@@ -27,25 +23,25 @@
                   @change="handleChange"
                 >
                   <a-button ghost>
-                    <a-icon type="camera" /> Click to Upload
+                    <a-icon type="camera" /> Remove Avatar
                   </a-button>
                 </a-upload>
               </p>
             </div>
             <div>
               <label for="Name">Name *</label><br />
-              <a-input />
+              <a-input value="Michael" />
             </div>
             <div>
               <label for="Name">Email *</label><br />
-              <a-input />
+              <a-input type="email" value="test@test.com" />
             </div>
             <div>
               <label for="Name">Password *</label><br />
-              <a-input />
+              <a-input type="password" value="12345" />
             </div>
 
-            <a-button block size="large"> Create Profile </a-button><br />
+            <a-button block size="large"> Update Profile </a-button><br />
           </a-form>
         </div>
       </div>
@@ -86,25 +82,40 @@ export default {
   margin: 0 auto !important;
   background: #141414 !important;
 } */
-.create-profile div:nth-child(1) {
+.edit-profile div:nth-child(1) {
   text-align: center;
 }
-.create-profile div:nth-child(1) p {
+.edit-profile img {
+  width: 100px;
+  height: 100px;
+}
+.edit-profile div:nth-child(1) p {
   margin-top: 8px;
 }
-.create-profile div:nth-child(1) p > i {
+.edit-profile div:nth-child(1) p > i {
   margin-right: 15px;
   font-size: 24px;
 }
-.create-profile h1 {
+.edit-profile h1 {
   font-family: 'Lato';
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 32px;
   line-height: 38px;
   color: #e1e1e1;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
 }
-.create-profile p {
+.edit-profile h1 > a {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: right;
+  text-decoration-line: underline;
+  color: #f33f3f;
+}
+.edit-profile p {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -113,11 +124,11 @@ export default {
 
   color: #ffffff;
 }
-.create-profile p a {
+.edit-profile p a {
   color: #f33f3f;
   text-decoration: underline;
 }
-.create-profile label {
+.edit-profile label {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -126,14 +137,14 @@ export default {
   color: #e1e1e1;
   margin-bottom: 5px !important;
 }
-.create-profile .ant-form.ant-form-horizontal {
+.edit-profile .ant-form.ant-form-horizontal {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 100px;
   margin: 0 auto;
 }
-.create-profile .ant-btn.ant-btn.ant-btn-background-ghost {
+.edit-profile .ant-btn.ant-btn.ant-btn-background-ghost {
   margin-top: 8px;
   border: none;
   font-family: 'Lato';
@@ -142,13 +153,13 @@ export default {
   line-height: 24px;
   color: #e1e1e1;
 }
-.create-profile .ant-btn.ant-btn.ant-btn-background-ghost:hover {
+.edit-profile .ant-btn.ant-btn.ant-btn-background-ghost:hover {
   color: #e1e1e1;
 }
-.create-profile .ant-btn.ant-btn.ant-btn-background-ghost > i {
+.edit-profile .ant-btn.ant-btn.ant-btn-background-ghost > i {
   font-size: 24px;
 }
-.create-profile .ant-btn.ant-btn-lg {
+.edit-profile .ant-btn.ant-btn-lg {
   margin-top: 30px;
   background: #f33f3f !important;
   border: #f33f3f !important;
@@ -159,17 +170,17 @@ export default {
   max-width: 247px;
   color: #141414 !important;
 }
-.create-profile .ant-btn:hover {
+.edit-profile .ant-btn:hover {
   background: #f56363;
   border: #f56363;
   color: #141414;
 }
-.create-profile div {
+.edit-profile div {
   width: auto;
   margin: 0 auto;
 }
-.create-profile input.ant-input,
-.create-profile textarea.ant-input {
+.edit-profile input.ant-input,
+.edit-profile textarea.ant-input {
   background: transparent;
   margin-top: 5px;
   color: #e1e1e1;
@@ -185,14 +196,14 @@ export default {
   border-radius: 6px;
   margin-top: 24px;
 }
-.create-profile {
+.edit-profile {
   padding-left: 50px !important;
 }
 @media only screen and (min-device-width: 922px) {
-  .create-profile {
+  .edit-profile {
     padding-left: 30px !important;
   }
-  .create-profile div {
+  .edit-profile div {
     width: 350px;
     margin: 0 auto;
   }
@@ -204,7 +215,7 @@ export default {
   }
 }
 @media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
-  .create-profile {
+  .edit-profile {
     padding-left: 40px !important;
   }
 }

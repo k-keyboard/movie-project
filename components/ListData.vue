@@ -121,7 +121,6 @@ export default {
     }
 
     axios
-
       .request(options)
       .then(function (response) {
         vm.movie = response.data

@@ -88,6 +88,9 @@ export default {
     viewDetail(id) {
       this.$router.push('/movie-detail/' + id)
     },
+    onSearch(value) {
+      console.log(value)
+    },
   },
 }
 </script>
@@ -142,9 +145,12 @@ export default {
   color: white;
   padding-left: 50px !important;
 }
+.movie-content span.ant-input-group-addon{
+  background: none;
+}
 .movie-content > span > span button {
   background: #f33f3f;
-  border-radius: 6px;
+  border-radius: 6px !important;
   color: #000000;
   border: none;
 }
@@ -170,6 +176,7 @@ div#card {
 }
 div#card .ant-col {
   max-width: 300px;
+  cursor: pointer;
   /* display: table-cell; */
 }
 .ant-card {
@@ -256,7 +263,7 @@ div#card {
     max-width: 160px;
     min-width: 150px;
     width: auto;
-    min-height: expression(parseInt(row.offsetHeight)-43);
+    min-height: expression(parseInt(row)-43);
     /* display: table-cell; */
   }
   div#card {

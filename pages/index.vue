@@ -42,7 +42,8 @@
         <p>Popular movies right now</p>
 
         <a-row id="card" type="flex">
-          <list-data :limit="5"> </list-data>
+          <list-data :limit="5">
+          </list-data>
         </a-row>
       </div>
     </a-layout-content>
@@ -52,14 +53,16 @@
 import ListData from '../components/ListData.vue'
 export default {
   components: { ListData },
-  methods: {
+    methods: {
     onSearch(value) {
       console.log(value)
     },
     viewDetail(id) {
+      
       this.$router.push('/' + id)
     },
   },
+
 }
 </script>
 <style scoped>
@@ -172,16 +175,16 @@ div#card .ant-col {
   margin-bottom: 0px !important;
 }
 .ant-menu-inline {
-  width: 247px;
-  margin-left: 30px;
-}
-.btn-profile {
-  height: 45px;
-  width: calc(100% - 60px);
-  margin-left: 30px;
-  align-content: flex-end;
-  color: #e1e1e1;
-}
+    width: 247px;
+    margin-left: 30px;
+  }
+  .btn-profile {
+    height: 45px;
+    width: calc(100% - 60px);
+    margin-left: 30px;
+    align-content: flex-end;
+    color: #e1e1e1;
+  }
 
 @media only screen and (min-device-width: 1280px) {
   div#card .ant-col {
@@ -190,5 +193,6 @@ div#card .ant-col {
     width: 150px;
     /* display: table-cell; */
   }
+  
 }
 </style>
