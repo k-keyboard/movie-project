@@ -16,7 +16,7 @@
             <a-input />
             <label for="Description">Description</label>
             <a-textarea :auto-size="{ minRows: 10, maxRows: 20 }" />
-            <a-button block size="large"> Create watchlist </a-button>
+            <a-button id="create" block size="large"> Create watchlist </a-button>
           </a-form>
         </div>
       </div>
@@ -26,14 +26,8 @@
 <script>
 export default {}
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;
-} */
+<style scoped>
+@import url('~/assets/css/style.css');
 .watchlist-create h1 {
   font-family: 'Lato';
   font-style: normal;
@@ -65,12 +59,6 @@ export default {}
   max-width: 247px;
   color: #141414 !important;
 }
-.watchlist-create .ant-btn:hover {
-  background: #f56363;
-  border: #f56363;
-  color: #141414;
-}
-
 .watchlist-create input.ant-input,
 .watchlist-create textarea.ant-input {
   background: transparent;

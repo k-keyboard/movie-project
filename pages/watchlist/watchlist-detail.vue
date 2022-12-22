@@ -1,18 +1,12 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div
-        :style="{
-          padding: '26px 50px',
-          background: '#161616',
-          minHeight: '100vh',
-        }"
-        class="watchlist-detail"
+      <div class="watchlist-detail"
       >
         <a-row>
           <p>
             Movies by Tom Cruise
-            <a-icon type="form" @click="go('watchlist-edit')" />
+            <a-icon type="form" @click="go('watchlist/watchlist-edit')" />
           </p>
           <p>About this watchlist</p>
           <small> This list lorem ipsum dolor et blah blah blah </small>
@@ -33,16 +27,16 @@
         </a-row>
 
         <a-row id="card" type="flex">
-          <list-data :limit="7" :lable="2"> </list-data>
+          <CardMovie :limit="7" :lable="2"> </CardMovie>
         </a-row>
       </div>
     </a-layout-content>
   </a-layout>
 </template>
 <script>
-import ListData from '../components/ListData.vue'
+import CardMovie from '~/components/CardMovie.vue'
 export default {
-  components: { ListData },
+  components: { CardMovie },
   methods: {
     onSearch(value) {
       console.log(value)
@@ -54,9 +48,10 @@ export default {
 }
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('~/assets/css/style.css');
+.watchlist-detail {
+  padding: 26px 50px;
+}
 p {
   margin: 0;
 }
@@ -66,9 +61,7 @@ p {
   border-radius: 8px;
   padding: 20px;
 }
-.watchlist-detail {
-  width: 100%;
-}
+
 .watchlist-detail div > p:nth-child(1) {
   font-family: 'Lato';
   font-style: normal;
@@ -154,10 +147,6 @@ p {
   color: #000000;
   border: none;
 }
-.watchlist-detail > span > span button:hover {
-  background: #f56363;
-  color: #000000;
-}
 .watchlist-detail > p {
   font-family: 'Lato';
   font-weight: 400;
@@ -168,7 +157,6 @@ p {
 }
 div#card {
   margin: 0px !important;
-  /* border: #e1e1e1 1px solid; */
   grid-gap: 60px;
 }
 .ant-card-bordered {
@@ -176,15 +164,11 @@ div#card {
 }
 div#card .ant-col {
   max-width: 300px;
-  /* display: table-cell; */
 }
 .ant-card {
   background: #1f1f1f;
   height: 100% !important;
   color: #e1e1e1;
-}
-.ant-card-body {
-  padding: 5px;
 }
 .ant-col > img#lable {
   position: absolute;
@@ -192,18 +176,6 @@ div#card .ant-col {
   cursor: pointer;
 }
 
-.ant-card-body > p {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  margin-right: 10px;
-  margin-left: 10px;
-  margin-top: 5px;
-  padding-bottom: 10px;
-  margin-bottom: 0px !important;
-}
 .ant-menu-inline {
   width: 47px;
   margin-left: 30px;
@@ -217,12 +189,7 @@ div#card .ant-col {
 }
 
 @media only screen and (min-device-width: 1280px) {
-  div#card .ant-col {
-    max-width: 150px;
-    min-width: 150px;
-    width: 150px;
-    /* display: table-cell; */
-  }
+  
   .watchlist-detail {
     padding: 26px 30px;
   }

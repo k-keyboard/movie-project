@@ -33,7 +33,7 @@
           <a-icon type="history" />
           <span class="nav-text">History</span>
         </a-menu-item>
-        <a-button block size="large" @click="push('watchlist-create')">
+        <a-button id="create" block size="large" @click="push('watchlist')">
           + Create watchlist
         </a-button>
       </a-menu>
@@ -41,7 +41,7 @@
         <hr />
         <p>My Lists</p>
         <div>
-          <a-button ghost block size="large" @click="push('watchlist-detail')">
+          <a-button ghost block size="large" @click="push('watchlist/watchlist-detail')">
             <img src="~/assets/icon-button/Group 64.svg" alt="" />
             Movies by Tom Cruise
           </a-button>
@@ -50,22 +50,21 @@
     </div>
     <div>
       <a-row type="flex">
-        <div class="btn-profile">
+        <div id="components-dropdown-demo-placement" class="btn-profile">
           <a-dropdown-button @click="handleButtonClick">
             <img src="~/assets/icon-button/32.svg" alt="" />
             GUEST
             <a-menu
               slot="overlay"
-              placements="topLeft"
               @click="handleMenuClick"
             >
-              <a-menu-item key="1" @click="push('login')">
+              <a-menu-item key="1" @click="push('profile')">
                 <a-icon type="user" />Login
               </a-menu-item>
-              <a-menu-item key="2" @click="push('create-profile')">
+              <a-menu-item key="2" @click="push('profile/create-profile')">
                 <a-icon type="user" />Create Profile
               </a-menu-item>
-              <a-menu-item key="3" @click="push('edit-profile')">
+              <a-menu-item key="3" @click="push('profile/edit-profile')">
                 <a-icon type="user" />Update Profile
               </a-menu-item>
             </a-menu>
@@ -98,22 +97,16 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
+@import url('~/assets/css/style.css');
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;S
-} */
 aside {
-  /* position: relative; */
   flex: 0 0 320px !important;
   max-width: 320px !important;
   min-width: 320px !important;
   width: 320px !important;
-  /* min-height: 100vh; */
-  /* max-height: 100%; */
 }
 
 aside.ant-layout-sider-zero-width {
@@ -122,7 +115,7 @@ aside.ant-layout-sider-zero-width {
   min-width: 0px !important;
   width: 0px !important;
 }
-.ant-layout-sider-children {
+::v-deep .ant-layout-sider-children {
   height: 100vh;
   top: 0;
   position: sticky;
@@ -178,18 +171,17 @@ aside.ant-layout-sider-zero-width {
   background: rgba(255, 255, 255, 0.3);
   color: #e1e1e1;
 }
-.my-list > div > button > img {
+::v-deep .my-list > div > button > img {
   margin-right: 16px;
 }
-.components-input-demo-presuffix {
+::v-deep .components-input-demo-presuffix {
   box-sizing: border-box;
   padding: 20px 43px 40px 30px;
 }
 .ant-input-prefix {
-  /* margin:auto 12px; */
   font-size: 21px;
 }
-.components-input-demo-presuffix .ant-input {
+::v-deep .components-input-demo-presuffix .ant-input {
   border: 1px solid rgba(217, 217, 217, 0.3);
   border-radius: 6px;
   background: inherit;
@@ -200,13 +192,6 @@ aside.ant-layout-sider-zero-width {
   font-weight: 400;
   font-size: 16px;
   padding-left: 50px !important;
-}
-.ant-input::placeholder {
-  color: rgba(217, 217, 217, 0.3);
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  /* padding-left: 17px; */
 }
 .ant-layout-sider,
 .ant-menu-dark,
@@ -245,54 +230,46 @@ ul.ant-menu .ant-btn {
 
   color: #141414;
 }
-ul.ant-menu .ant-btn:hover {
-  background: #f56363;
-  border: #f56363;
-}
 .ant-row-flex {
   /* border: #9a9a9a 1px solid; */
   margin-bottom: 30px;
 }
-.btn-profile {
+::v-deep .btn-profile {
   width: 100%;
 }
-.btn-profile .ant-btn-group.ant-dropdown-button {
+::v-deep .btn-profile .ant-btn-group.ant-dropdown-button {
   width: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 4px;
 }
-.btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default {
+::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default {
   width: 80%;
   text-align: left;
   padding: 0;
 }
-.btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default img {
+::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default img {
   margin: 6px 10px;
 }
-.btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default span {
+::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default span {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
 }
-.btn-profile .ant-btn.ant-btn-default.ant-dropdown-trigger {
+::v-deep .btn-profile .ant-btn.ant-btn-default.ant-dropdown-trigger {
   width: 20% !important;
   text-align: right !important;
   margin-right: 14px;
   font-size: 21px;
 }
-.btn-profile .ant-btn {
+::v-deep .btn-profile .ant-btn {
   height: 41px;
   background: transparent;
   border: none;
-
   color: #e1e1e1;
 }
-/* .btn-profile img {
-  margin: 6px 10px;
-} */
-.text-profile {
+::v-deep .text-profile {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -303,7 +280,7 @@ ul.ant-menu .ant-btn:hover {
   text-align: center;
   color: #e1e1e1;
 }
-.icon-list-profile svg {
+::v-deep .icon-list-profile svg {
   position: absolute;
   right: 14px;
   top: 30%;
@@ -313,12 +290,16 @@ ul.ant-menu .ant-btn:hover {
   width: 247px;
   margin-left: 30px;
 }
-.btn-profile {
+::v-deep .btn-profile {
   height: 45px;
   width: calc(100% - 60px);
   margin-left: 30px;
   align-content: flex-end;
 
   color: #e1e1e1;
+}
+#components-dropdown-demo-placement .ant-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
 </style>

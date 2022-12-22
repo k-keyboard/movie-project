@@ -1,11 +1,20 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div class="movie-search">
-        <p class="clear-history">Search Results: movies by Tom Cruise</p>
+      <div
+        :style="{
+          padding: '50px 60px',
+          background: '#161616',
+          minHeight: '100vh',
+        }"
+        class="movie-history"
+      >
+        <p class="clear-history">
+          <a>Clear history</a>
+        </p>
 
         <a-row id="card" type="flex">
-          <CardMovie />
+          <CardMovie></CardMovie>
         </a-row>
       </div>
     </a-layout-content>
@@ -15,12 +24,7 @@
 import CardMovie from '~/components/CardMovie.vue'
 export default {
   components: { CardMovie },
-  props: {
-    // eslint-disable-next-line vue/require-default-prop
-    search: {
-      type: String,
-    },
-  },
+
   methods: {
     onSearch(value) {
       console.log(value)
@@ -33,19 +37,19 @@ export default {
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
-.movie-search {
-  padding: 50px 60px;
-}
-.movie-search > p {
+.movie-history > p {
   font-family: 'Lato';
   font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 38px;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  margin-bottom: 46px;
-  color: #e1e1e1;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration-line: underline;
+  color: #f33f3f;
+  text-align: right;
+  margin: 0 -30px;
+  padding-bottom: 40px;
+}
+p > a {
+  color: #f33f3f;
 }
 </style>

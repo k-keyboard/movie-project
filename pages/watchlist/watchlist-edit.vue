@@ -26,7 +26,7 @@
             <div id="list-movie">
               <div id="img-card">
                 <img
-                  src="../assets/card-images/poster1 1.png"
+                  src="~/assets/card-images/poster1 1.png"
                   height="75"
                   alt=""
                 />
@@ -46,14 +46,8 @@
 <script>
 export default {}
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;
-} */
+<style scoped>
+@import url('~/assets/css/style.css');
 .watchlist-edit h1 {
   font-family: 'Lato';
   font-style: normal;
@@ -93,8 +87,9 @@ export default {}
   font-size: 16px;
   line-height: 19px;
   color: #e1e1e1 !important;
+  background: none;
 }
-#save {
+button#save {
   margin-top: 30px;
   background: #f33f3f !important;
   border: #f33f3f !important;
@@ -107,12 +102,10 @@ export default {}
   max-width: 247px;
   color: #141414 !important;
 }
-#save {
-  background: #f56363;
-  border: #f56363;
-  color: #141414;
+button#remove:hover {
+  background: #f33f3f !important;
+  color: #141414 !important;
 }
-
 .watchlist-edit input.ant-input,
 .watchlist-edit textarea.ant-input {
   background: transparent;
@@ -139,7 +132,6 @@ export default {}
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-
   color: #e1e1e1;
 }
 #components-form-demo-vuex .language-bash {

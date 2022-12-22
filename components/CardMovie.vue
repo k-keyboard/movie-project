@@ -1,92 +1,113 @@
 <template>
-  <a-col :flex="1" @click="viewDetail(`${id}`)">
-    <img
-      v-if="lable === 1"
-      id="lable-c"
-      src="~/assets/card-images/check-white.svg"
-      alt=""
-    />
-    <img
-      v-else-if="lable === 2"
-      id="lable-c"
-      src="~/assets/card-images/check-green.svg"
-      alt=""
-    />
-    <img
-      v-else
-      id="lable"
-      src="~/assets/icon-button/Property 1=Default.svg"
-      alt=""
-    />
-    <a-card hoverable style="width: 100%">
-      <img id="cover" slot="cover" alt="example" :src="image" />
+  <div>
+    <a-row id="card-movie" type="flex">
+      <a-col
+        v-for="(movie, index) in movies.slice(0, limit)"
+        :key="index"
+        :flex="1"
+        @click="viewDetail(`${movie.id}`)"
+      >
+        <img
+          v-if="lable === 1"
+          id="lable-c"
+          src="~/assets/card-images/check-white.svg"
+          alt=""
+        />
+        <img
+          v-else-if="lable === 2"
+          id="lable-c"
+          src="~/assets/card-images/check-green.svg"
+          alt=""
+        />
+        <img
+          v-else
+          id="lable"
+          src="~/assets/icon-button/Property 1=Default.svg"
+          alt=""
+        />
+        <a-card hoverable style="width: 100%">
+          <img id="cover" slot="cover" alt="example" :src="movie.image" />
 
-      <div id="score">
-        <div>
-          <img
-            v-if="score * 10 > 80"
-            src="~/assets/card-images/Vector.svg"
-            height="19"
-            alt=""
-          />
-          <img
-            v-else-if="score * 10 >= 50"
-            src="~/assets/card-images/Vector (1).svg"
-            height="19"
-            alt=""
-          />
-          <img
-            v-else
-            src="~/assets/card-images/Vector (2).svg"
-            height="19"
-            alt=""
-          />
-        </div>
-        <div>
-          {{ score * 10 }}
-        </div>
-        <div>/100</div>
-      </div>
+          <div id="score">
+            <div>
+              <img
+                v-if="movie.rating * 10 > 80"
+                src="~/assets/card-images/Vector.svg"
+                height="19"
+                alt=""
+              />
+              <img
+                v-else-if="movie.rating * 10 >= 50"
+                src="~/assets/card-images/Vector (1).svg"
+                height="19"
+                alt=""
+              />
+              <img
+                v-else
+                src="~/assets/card-images/Vector (2).svg"
+                height="19"
+                alt=""
+              />
+            </div>
+            <div>
+              {{ movie.rating * 10 }}
+            </div>
+            <div>/100</div>
+          </div>
 
-      <p>
-        {{ name }} <br />
-        ({{ year }})
-      </p>
-    </a-card>
-  </a-col>
+          <p>
+            {{ movie.title }} <br />
+            ({{ movie.year }})
+          </p>
+        </a-card>
+      </a-col>
+    </a-row>
+  </div>
 </template>
 
 <script>
 export default {
+  name: 'CardMovie',
+  // eslint-disable-next-line vue/require-prop-types
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    score: {
-      type: String,
-      default: '0',
+    limit: {
+      type: Number,
+      default: 100,
     },
     // eslint-disable-next-line vue/require-default-prop
     lable: {
       type: Number,
     },
-    name: {
-      type: String,
-      default: 'title Default',
-    },
-    image: {
-      type: String,
-      default: '~/assets/card-images/poster3 1.png',
-    },
-    // eslint-disable-next-line vue/require-default-prop
-    year: {
-      type: Number,
-    },
+  },
+  data() {
+    return {
+      movies: [],
+    }
+  },
+  mounted() {
+    const vm = this
+    const axios = require('axios')
+    const options = {
+      method: 'GET',
+      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+      headers: {
+        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    }
+
+    axios
+      .request(options)
+      .then(function (response) {
+        vm.movies = response.data
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
   },
   methods: {
     viewDetail(id) {
-      this.$router.push('/movie-detail/' + id)
+      this.$router.push(id)
     },
     onSearch(value) {
       console.log(value)
@@ -95,114 +116,39 @@ export default {
 }
 </script>
 
-<style>
-.movie-content .ant-col.ant-col-24 {
-  background: rgba(217, 217, 217, 0.1);
-  border: 1px solid #a41b1b;
-  border-radius: 8px;
-  padding: 20px;
-}
-.movie-content {
-  width: 100%;
-}
-.movie-content .ant-col.ant-col-24 p:nth-child(1) {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 48px;
-  color: #e1e1e1;
-}
-.movie-content .ant-col.ant-col-24 p span {
-  color: #f33f3f;
-}
-.movie-content .ant-col.ant-col-24 p:nth-child(2) {
-  font-family: 'Lato';
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 24px;
-  /* margin-top: 35px; */
-  color: #e1e1e1;
-}
-.movie-content .ant-col.ant-col-24 p:nth-child(3) {
-  font-family: 'Lato';
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 24px;
-  margin-bottom: 0;
-  color: #e1e1e1;
-}
-.movie-content > span {
-  margin-top: 40px;
-}
-.movie-content > span > span {
-  border: 1px solid rgba(217, 217, 217, 0.3);
-  border-radius: 6px;
-}
-.movie-content > span > span > span > input {
-  background: inherit;
-  border: none;
-  color: white;
-  padding-left: 50px !important;
-}
-.movie-content span.ant-input-group-addon{
-  background: none;
-}
-.movie-content > span > span button {
-  background: #f33f3f;
-  border-radius: 6px !important;
-  color: #000000;
-  border: none;
-}
-.movie-content > span > span button:hover {
-  background: #f56363;
-  color: #000000;
-}
-.movie-content > p {
-  font-family: 'Lato';
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 38px;
-  margin: 35px 0;
-  color: #e1e1e1;
-}
-div#card {
+<style scoped>
+@import url('~/assets/css/style.css');
+#card-movie {
   margin: 0px !important;
-  /* border: #e1e1e1 1px solid; */
-  grid-gap: 60px;
 }
-.ant-card-bordered {
+#card-movie .ant-card-bordered {
   border: none;
 }
-div#card .ant-col {
+#card-movie .ant-col {
   max-width: 300px;
   cursor: pointer;
-  /* display: table-cell; */
 }
-.ant-card {
+#card-movie .ant-card {
   background: #1f1f1f;
   height: 100% !important;
   color: #e1e1e1;
 }
-.ant-card-body {
-  padding: 5px;
-}
-.img#cover {
+#card-movie .img#cover {
   border-radius: 4px 4px 0px 0px;
 }
-.ant-col > img#lable {
+#card-movie .ant-col > img#lable {
   position: absolute;
   z-index: 999;
   cursor: pointer;
 }
-.ant-col > img#lable-c {
+#card-movie .ant-col > img#lable-c {
   position: absolute;
   right: 10px;
   top: 16px;
   z-index: 999;
   cursor: pointer;
 }
-div#score {
+#card-movie div#score {
   display: flex;
   flex-direction: row;
   font-family: 'Lato';
@@ -210,23 +156,52 @@ div#score {
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
+  margin: 5px;
   align-content: flex-start;
   justify-content: flex-end;
 }
-div#score > div:nth-child(1) {
+#card-movie div#score > div:nth-child(1) {
   font-size: 16px;
   line-height: 19px;
 }
-div#score > div:nth-child(2) {
+#card-movie div#score > div:nth-child(2) {
   font-size: 16px;
   line-height: 19px;
   margin-left: 5px;
 }
-div#score > div:nth-child(3) {
+#card-movie div#score > div:nth-child(3) {
   font-size: 10px;
   line-height: 12px;
 }
-.ant-card-body > p {
+#card-movie div#card .ant-col {
+  max-width: 150px;
+  min-width: 150px;
+  width: 150px;
+}
+#card-movie {
+  gap: 40px;
+}
+
+#card-movie .ant-card-bordered {
+  border: none;
+}
+#card-movie div#card .ant-col {
+  max-width: 300px;
+}
+#card-movie .ant-card {
+  background: #1f1f1f;
+  height: 100% !important;
+  color: #e1e1e1;
+}
+#card-movie .ant-menu-inline {
+  width: 247px;
+  margin-left: 30px;
+}
+::v-deep div#card-movie .ant-card-body {
+  padding: 0;
+  margin: 0;
+}
+::v-deep #card-movie .ant-card-body > p {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
@@ -235,38 +210,31 @@ div#score > div:nth-child(3) {
   margin-right: 10px;
   margin-left: 10px;
   margin-top: 5px;
-  padding-bottom: 10px;
-  margin-bottom: 0px !important;
+  padding-bottom: 10px !important;
 }
-div#card .ant-col {
-  max-width: 150px;
-  min-width: 150px;
-  width: 150px;
-  /* display: table-cell; */
-}
-div#card {
-  gap: 40px;
-}
+
 @media only screen and (min-device-width: 1280px) {
-  div#card .ant-col {
+  #card-movie .ant-col {
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-    display: table-cell;
   }
-  div#card {
+  #card-movie .ant-card-body {
+    padding: 0 !important;
+  }
+  #card-movie {
     gap: 60px;
   }
 }
+
 @media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
-  div#card .ant-col {
+  #card-movie div#card .ant-col {
     max-width: 160px;
     min-width: 150px;
     width: auto;
     min-height: expression(parseInt(row)-43);
-    /* display: table-cell; */
   }
-  div#card {
+  #card-movie {
     gap: 30px;
   }
 }

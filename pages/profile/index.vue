@@ -1,14 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div
-        :style="{
-          padding: '50px 60px 50px 23px',
-          background: '#161616',
-          minHeight: '100vh',
-        }"
-        class="login"
-      >
+      <div class="login">
         <h1>
           Hello! <br />
           Please log in or create an account <br />
@@ -25,7 +18,7 @@
               <a-input />
             </div>
 
-            <a-button block size="large"> Create watchlist </a-button><br />
+            <a-button id="login" block size="large"> Log in </a-button><br />
             <p>or <a @click="push('create-profile')">create an account</a></p>
           </a-form>
         </div>
@@ -37,19 +30,16 @@
 export default {
   methods: {
     push(path) {
-      this.$router.push('/' + path)
+      this.$router.push('profile/' + path)
     },
   },
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;
-} */
+<style scoped>
+@import url('~/assets/css/style.css');
+.login {
+  padding: 50px 60px 50px 23px;
+}
 .login h1 {
   font-family: 'Lato';
   font-style: normal;
@@ -64,7 +54,6 @@ export default {
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
-
   color: #ffffff;
 }
 .login p a {
@@ -97,11 +86,6 @@ export default {
   line-height: 19px;
   max-width: 247px;
   color: #141414 !important;
-}
-.login .ant-btn:hover {
-  background: #f56363;
-  border: #f56363;
-  color: #141414;
 }
 .login div {
   width: auto;
@@ -139,7 +123,6 @@ export default {
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-    /* display: table-cell; */
   }
 }
 </style>

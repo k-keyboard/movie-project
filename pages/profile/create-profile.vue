@@ -1,14 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div
-        :style="{
-          padding: '50px 60px 50px 23px',
-          background: '#161616',
-          minHeight: '100vh',
-        }"
-        class="create-profile"
-      >
+      <div class="create-profile">
         <h1>
           Hello! <br />
           Please log in or create an account <br />
@@ -45,7 +38,8 @@
               <a-input />
             </div>
 
-            <a-button block size="large"> Create Profile </a-button><br />
+            <a-button id="create" block size="large"> Create Profile </a-button
+            ><br />
           </a-form>
         </div>
       </div>
@@ -78,14 +72,11 @@ export default {
   },
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;
-} */
+<style scoped>
+@import url('~/assets/css/style.css');
+.create-profile {
+  padding: 50px 60px 50px 23px;
+}
 .create-profile div:nth-child(1) {
   text-align: center;
 }

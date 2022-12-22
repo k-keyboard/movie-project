@@ -1,14 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div
-        :style="{
-          padding: '50px 60px 50px 23px',
-          background: '#161616',
-          minHeight: '100vh',
-        }"
-        class="edit-profile"
-      >
+      <div class="edit-profile">
         <h1>Edit profile <a href="#">Log out</a></h1>
         <div id="components-form-demo-vuex">
           <a-form>
@@ -41,7 +34,8 @@
               <a-input type="password" value="12345" />
             </div>
 
-            <a-button block size="large"> Update Profile </a-button><br />
+            <a-button id="update" block size="large"> Update Profile </a-button
+            ><br />
           </a-form>
         </div>
       </div>
@@ -74,14 +68,11 @@ export default {
   },
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-/* body{
-  margin: 0 auto !important;
-  background: #141414 !important;
-} */
+<style scoped>
+@import url('~/assets/css/style.css');
+.edit-profile {
+  padding: 50px 60px 50px 23px;
+}
 .edit-profile div:nth-child(1) {
   text-align: center;
 }
@@ -121,7 +112,6 @@ export default {
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
-
   color: #ffffff;
 }
 .edit-profile p a {
@@ -169,11 +159,6 @@ export default {
   line-height: 19px;
   max-width: 247px;
   color: #141414 !important;
-}
-.edit-profile .ant-btn:hover {
-  background: #f56363;
-  border: #f56363;
-  color: #141414;
 }
 .edit-profile div {
   width: auto;
