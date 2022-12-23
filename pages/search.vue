@@ -2,7 +2,7 @@
   <a-layout>
     <a-layout-content>
       <div class="movie-search">
-        <p class="clear-history">Search Results: {{search}}</p>
+        <p class="clear-history">Search Results: {{ search }}</p>
 
         <a-row id="card" type="flex">
           <CardMovie :movies="movies" />
@@ -18,7 +18,7 @@ export default {
   props: {
     search: {
       type: String,
-      default: "movies by Tom Cruise"
+      default: 'movies by Tom Cruise',
     },
   },
   data() {
@@ -33,7 +33,7 @@ export default {
       method: 'GET',
       url: 'https://imdb-top-100-movies.p.rapidapi.com/',
       headers: {
-        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     }
@@ -45,7 +45,6 @@ export default {
       .catch(function (error) {
         console.error(error)
       })
-      
   },
   methods: {
     onSearch(value) {

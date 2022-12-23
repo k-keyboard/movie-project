@@ -75,12 +75,14 @@ export default {
     },
     lable: {
       type: Number,
-      default:null,
+      default: null,
     },
-    // eslint-disable-next-line vue/require-default-prop
-    movies: Object,
+    movies: {
+      type: Array,
+      default: () => [],
+    },
   },
-  
+
   methods: {
     viewDetail(id) {
       this.$router.push(id)

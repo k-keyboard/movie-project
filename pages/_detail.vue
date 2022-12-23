@@ -49,7 +49,7 @@
         <p id="related-movies">Related Movies</p>
 
         <a-row id="card" type="flex">
-          <CardMovie :limit="5"> </CardMovie>
+          <CardMovie :movies="movies" :limit="5" />
         </a-row>
       </div>
     </a-layout-content>
@@ -57,31 +57,52 @@
 </template>
 <script>
 import CardMovie from '~/components/CardMovie.vue'
-const axios = require('axios')
 export default {
   components: { CardMovie },
   data() {
     return {
       id: this.$route.params.detail,
       movieDetail: [],
+      movies: [],
     }
   },
   mounted() {
     const id = this.$route.params.detail
+
+    const axios1 = require('axios')
     const options = {
       method: 'GET',
       url: `https://imdb-top-100-movies.p.rapidapi.com/${id}`,
       headers: {
-        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     }
 
-    axios
+    axios1
       .request(options)
       .then((response) => {
         this.movieDetail = response.data
         console.log(this.movieDetail)
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+
+    const vm = this
+    const axios2 = require('axios')
+    const options2 = {
+      method: 'GET',
+      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+      headers: {
+        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    }
+    axios2
+      .request(options2)
+      .then(function (response) {
+        vm.movies = response.data
       })
       .catch(function (error) {
         console.error(error)

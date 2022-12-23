@@ -42,7 +42,12 @@
         <hr />
         <p>My Lists</p>
         <div>
-          <a-button ghost block size="large" @click="push('watchlist/watchlist-detail')">
+          <a-button
+            ghost
+            block
+            size="large"
+            @click="push('watchlist/watchlist-detail')"
+          >
             <img src="~/assets/icon-button/Group 64.svg" alt="" />
             Movies by Tom Cruise
           </a-button>
@@ -55,10 +60,7 @@
           <a-dropdown-button @click="handleButtonClick">
             <img src="~/assets/icon-button/32.svg" alt="" />
             GUEST
-            <a-menu
-              slot="overlay"
-              @click="handleMenuClick"
-            >
+            <a-menu slot="overlay" @click="handleMenuClick">
               <a-menu-item key="1" @click="push('profile')">
                 <a-icon type="user" />Login
               </a-menu-item>
@@ -94,6 +96,9 @@ export default {
     },
     push(path) {
       this.$router.push('/' + path)
+    },
+    onSearch(value) {
+      console.log(value)
     },
   },
 }
@@ -241,15 +246,26 @@ ul.ant-menu .ant-btn {
   border: 1px solid #e1e1e1;
   border-radius: 4px;
 }
-::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default {
+::v-deep
+  .btn-profile
+  .ant-btn-group.ant-dropdown-button
+  .ant-btn.ant-btn-default {
   width: 80%;
   text-align: left;
   padding: 0;
 }
-::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default img {
+::v-deep
+  .btn-profile
+  .ant-btn-group.ant-dropdown-button
+  .ant-btn.ant-btn-default
+  img {
   margin: 6px 10px;
 }
-::v-deep .btn-profile .ant-btn-group.ant-dropdown-button .ant-btn.ant-btn-default span {
+::v-deep
+  .btn-profile
+  .ant-btn-group.ant-dropdown-button
+  .ant-btn.ant-btn-default
+  span {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;

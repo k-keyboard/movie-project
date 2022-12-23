@@ -1,8 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div class="watchlist-detail"
-      >
+      <div class="watchlist-detail">
         <a-row>
           <p>
             Movies by Tom Cruise
@@ -27,7 +26,7 @@
         </a-row>
 
         <a-row id="card" type="flex">
-          <CardMovie :limit="7" :lable="2"> </CardMovie>
+          <CardMovie :movies="movies" :limit="7" :lable="2"> </CardMovie>
         </a-row>
       </div>
     </a-layout-content>
@@ -37,6 +36,31 @@
 import CardMovie from '~/components/CardMovie.vue'
 export default {
   components: { CardMovie },
+  data() {
+    return {
+      movies: [],
+    }
+  },
+  mounted() {
+    const vm = this
+    const axios = require('axios')
+    const options = {
+      method: 'GET',
+      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+      headers: {
+        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    }
+    axios
+      .request(options)
+      .then(function (response) {
+        vm.movies = response.data
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  },
   methods: {
     onSearch(value) {
       console.log(value)
@@ -189,7 +213,6 @@ div#card .ant-col {
 }
 
 @media only screen and (min-device-width: 1280px) {
-  
   .watchlist-detail {
     padding: 26px 30px;
   }
