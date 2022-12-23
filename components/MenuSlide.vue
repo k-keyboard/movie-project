@@ -10,17 +10,18 @@
       <div class="banner">Watchlists</div>
 
       <div class="components-input-demo-presuffix">
-        <a-input
+        <a-input-search
           ref="userNameInput"
           placeholder="Search"
-          @input="push('search')"
+          @search="onSearch"
+          @click="push('search')"
         >
           <a-icon
             slot="prefix"
             type="search"
             :style="{ color: 'rgba(217, 217, 217, 0.3)' }"
           />
-        </a-input>
+        </a-input-search>
         <br />
       </div>
 
@@ -227,11 +228,9 @@ ul.ant-menu .ant-btn {
   line-height: 19px;
   align-items: center;
   text-align: center;
-
   color: #141414;
 }
 .ant-row-flex {
-  /* border: #9a9a9a 1px solid; */
   margin-bottom: 30px;
 }
 ::v-deep .btn-profile {
@@ -275,7 +274,6 @@ ul.ant-menu .ant-btn {
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
-  /* identical to box height */
   align-items: center;
   text-align: center;
   color: #e1e1e1;
