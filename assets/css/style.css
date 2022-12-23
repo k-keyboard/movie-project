@@ -22,8 +22,11 @@ button#add:hover {
   min-height: 100vh;
 }
 ::v-deep .ant-input::placeholder {
-    color: rgba(217, 217, 217, 0.3);
-    font-family: 'Lato';
-    font-weight: 400;
-    font-size: 16px;
-  }
+  color: rgba(217, 217, 217, 0.3);
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 16px;
+}
+::v-deep span.ant-input-prefix > i > svg {
+  font-size: 21px;
+}
