@@ -22,7 +22,7 @@
           </a-form>
           <label for="Name">Movie</label>
           <div></div>
-          <span v-for="n in 3" :key="n">
+          <span v-for="n in maxList" :key="n">
             <div id="list-movie">
               <div id="img-card">
                 <img
@@ -33,7 +33,7 @@
                 <font>Top Gun: Maverick (2022)</font>
               </div>
               <div>
-                <a-button id="remove" type="danger" ghost> Remove </a-button>
+                <a-button id="remove" type="danger" ghost @click="removeMax" > Remove </a-button>
               </div>
             </div>
           </span>
@@ -44,7 +44,18 @@
   </a-layout>
 </template>
 <script>
-export default {}
+export default {
+  data(){
+    return{
+      maxList : 3
+    }
+  },
+  methods:{
+    removeMax(){
+      this.maxList = this.maxList-1;
+    }
+  }
+}
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
