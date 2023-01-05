@@ -18,18 +18,21 @@
               <label for="Name">Email *</label><br />
               <a-input
                 v-decorator="[
-                  'userName',
+                  'email',
                   {
                     rules: [
                       {
+                        type: 'email',
+                        message: 'The input is not valid E-mail!',
+                      },
+                      {
                         required: true,
-                        message: 'Please input your username!',
+                        message: 'Please input your E-mail!',
                       },
                     ],
                   },
                 ]"
-              >
-              </a-input>
+              />
             </a-form-item>
             <a-form-item>
               <label for="Name">Password *</label><br />
@@ -50,7 +53,7 @@
               </a-input>
             </a-form-item>
 
-            <a-button id="login" block size="large" html-type="submit" class="login-form-button"> Log in </a-button>
+            <a-button id="btnRedhover" block size="large" html-type="submit" class="login-form-button"> Log in </a-button>
             <br />
             <p>or <a @click="$router.push('profile/create-profile')">create an account</a></p>
           </a-form>
@@ -70,6 +73,7 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
+          
         }
       });
     },
