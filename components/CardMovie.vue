@@ -1,11 +1,10 @@
 <template>
-  <div>
     <a-row id="card-movie" type="flex">
       <a-col
         v-for="(movie, index) in movies.slice(0, limit)"
         :key="index"
         :flex="1"
-        @click="viewDetail(`${movie.id}`)"
+        @click="$router.push(`${movie.id}`)"
       >
         <img
           v-if="lable === 1"
@@ -62,7 +61,6 @@
         </a-card>
       </a-col>
     </a-row>
-  </div>
 </template>
 
 <script>
@@ -84,9 +82,6 @@ export default {
   },
 
   methods: {
-    viewDetail(id) {
-      this.$router.push(id)
-    },
     onSearch(value) {
       console.log(value)
     },
@@ -105,11 +100,6 @@ export default {
 #card-movie .ant-col {
   max-width: 300px;
   cursor: pointer;
-}
-#card-movie .ant-card {
-  background: #1f1f1f;
-  height: 100% !important;
-  color: #e1e1e1;
 }
 #card-movie .img#cover {
   border-radius: 4px 4px 0px 0px;
@@ -175,20 +165,18 @@ export default {
   width: 247px;
   margin-left: 30px;
 }
-::v-deep div#card-movie .ant-card-body {
+::v-deep div.ant-card-body {
   padding: 0;
   margin: 0;
 }
-::v-deep #card-movie .ant-card-body > p {
+::v-deep div.ant-card-body > p {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 10px;
   margin-top: 5px;
-  padding-bottom: 10px !important;
 }
 
 @media only screen and (min-device-width: 1280px) {

@@ -112,9 +112,6 @@ export default {
     onSearch(value) {
       console.log(value)
     },
-    viewDetail(id) {
-      this.$router.push('/' + id)
-    },
   },
 }
 </script>

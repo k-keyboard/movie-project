@@ -107,7 +107,6 @@ export default {
   font-weight: 300;
   font-size: 20px;
   line-height: 24px;
-  /* margin-top: 35px; */
   color: #e1e1e1;
 }
 .movie-content .ant-col.ant-col-24 p:nth-child(3) {

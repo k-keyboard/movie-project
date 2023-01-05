@@ -1,7 +1,7 @@
 <template>
-  <a-layout id="components-layout-demo-responsive">
+  <a-layout>
     <MenuSlide />
-    <!-- <MainContent /> -->
     <Nuxt />
   </a-layout>
 </template>
+

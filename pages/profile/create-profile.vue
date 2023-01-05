@@ -8,38 +8,82 @@
           to use the features of this app
         </h1>
         <div id="components-form-demo-vuex">
-          <a-form>
-            <div>
-              <a-avatar :size="100" icon="user" />
-              <p>
-                <a-upload
-                  name="file"
-                  :multiple="true"
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  :headers="headers"
-                  @change="handleChange"
-                >
-                  <a-button ghost>
-                    <a-icon type="camera" /> Click to Upload
-                  </a-button>
-                </a-upload>
-              </p>
-            </div>
-            <div>
+          <a-form :form="form" @submit="handleSubmit">
+            <a-form-item >
+              <img
+                id="blah"
+                src="~/assets/icon-button/profile.svg"
+                alt="your image"
+                width="100"
+                height="100"
+              /><br />
+              <span class="btn btn-file">
+                <a-icon type="camera" :style="{ fontSize: '24px' }" />
+                <span class="text-btn-upload"> Add an avatar </span>
+                <input
+                  type="file"
+                  onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+                />
+              </span>
+            </a-form-item>
+            <a-form-item >
               <label for="Name">Name *</label><br />
-              <a-input />
-            </div>
-            <div>
+              <a-input
+                v-decorator="[
+                  'name',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your name!',
+                        whitespace: true,
+                      },
+                    ],
+                  },
+                ]"
+              />
+            </a-form-item>
+            <a-form-item >
               <label for="Name">Email *</label><br />
-              <a-input />
-            </div>
-            <div>
+              <a-input
+                v-decorator="[
+                  'email',
+                  {
+                    rules: [
+                      {
+                        type: 'email',
+                        message: 'The input is not valid E-mail!',
+                      },
+                      {
+                        required: true,
+                        message: 'Please input your E-mail!',
+                      },
+                    ],
+                  },
+                ]"
+              />
+            </a-form-item>
+            <a-form-item >
               <label for="Name">Password *</label><br />
-              <a-input />
-            </div>
+              <a-input
+                v-decorator="[
+                  'password',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your password!',
+                      },
+                    ],
+                  },
+                ]"
+                type="password"
+              />
+            </a-form-item>
 
-            <a-button id="create" block size="large"> Create Profile </a-button
-            ><br />
+            <a-button id="create" html-type="submit" block size="large">
+              Create Profile 
+            </a-button>
           </a-form>
         </div>
       </div>
@@ -50,43 +94,65 @@
 export default {
   data() {
     return {
-      headers: {
-        authorization: 'authorization-text',
+      confirmDirty: false,
+      autoCompleteResult: [],
+      formItemLayout: {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 8 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 16 },
+        },
       },
-    }
+      tailFormItemLayout: {
+        wrapperCol: {
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        },
+      },
+    };
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: 'register' });
   },
   methods: {
-    push(path) {
-      this.$router.push('/' + path)
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFieldsAndScroll((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        }
+      });
     },
-    handleChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (info.file.status === 'done') {
-        this.$message.success(`${info.file.name} file uploaded successfully`)
-      } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} file upload failed.`)
-      }
+    handleConfirmBlur(e) {
+      const value = e.target.value;
+      this.confirmDirty = this.confirmDirty || !!value;
     },
+    
   },
-}
+};
 </script>
+
 <style scoped>
 @import url('~/assets/css/style.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 .create-profile {
   padding: 50px 60px 50px 23px;
 }
 .create-profile div:nth-child(1) {
   text-align: center;
 }
-.create-profile div:nth-child(1) p {
-  margin-top: 8px;
-}
-.create-profile div:nth-child(1) p > i {
-  margin-right: 15px;
-  font-size: 24px;
-}
+
+
 .create-profile h1 {
   font-family: 'Lato';
   font-style: normal;
@@ -115,7 +181,12 @@ export default {
   font-size: 18px;
   line-height: 22px;
   color: #e1e1e1;
-  margin-bottom: 5px !important;
+}
+.create-profile form.ant-form.ant-form-horizontal div{
+  margin-bottom: 20px;
+}
+.create-profile form.ant-form.ant-form-horizontal div:nth-child(1){
+  margin-bottom: 0;
 }
 .create-profile .ant-form.ant-form-horizontal {
   display: flex;
@@ -140,7 +211,7 @@ export default {
   font-size: 24px;
 }
 .create-profile .ant-btn.ant-btn-lg {
-  margin-top: 30px;
+  margin-top: 32px;
   background: #f33f3f !important;
   border: #f33f3f !important;
   font-family: 'Lato';
@@ -159,14 +230,11 @@ export default {
   width: auto;
   margin: 0 auto;
 }
-.create-profile input.ant-input,
-.create-profile textarea.ant-input {
+.create-profile input.ant-input{
   background: transparent;
-  margin-top: 5px;
   color: #e1e1e1;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
-  margin-bottom: 30px;
   min-height: 45px;
   min-width: 250px;
   max-width: 350px;
@@ -178,6 +246,48 @@ export default {
 }
 .create-profile {
   padding-left: 50px !important;
+}
+img#blah {
+  border-radius: 50%;
+  margin: 0 0 8px 0;
+  object-fit: cover;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type='file'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: transparent;
+  min-width: 100%;
+  min-height: 100%;
+  text-align: right;
+  outline: none;
+  cursor: inherit;
+  display: block;
+}
+.btn-file input[type='file']::-webkit-file-upload-button {
+  display: none;
+}
+.btn.btn-file {
+}
+span.text-btn-upload {
+  margin: 0 0 0 15px;
+}
+.btn,
+.btn-large,
+.btn-small {
+  background-color: transparent !important;
+  color: #e1e1e1;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  -webkit-box-shadow: none;
+  text-transform: none;
 }
 @media only screen and (min-device-width: 922px) {
   .create-profile {
@@ -191,7 +301,6 @@ export default {
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-    /* display: table-cell; */
   }
 }
 @media only screen and (min-device-width: 300px) and (max-device-width: 787px) {

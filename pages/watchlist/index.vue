@@ -47,7 +47,6 @@ export default {}
   margin-bottom: 5px !important;
 }
 .watchlist-create .ant-btn {
-  margin-top: 30px;
   background: #f33f3f !important;
   border: #f33f3f !important;
   font-family: 'Lato';
@@ -79,7 +78,6 @@ export default {}
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-    /* display: table-cell; */
   }
 }
 @media only screen and (min-device-width: 300px) and (max-device-width: 787px) {

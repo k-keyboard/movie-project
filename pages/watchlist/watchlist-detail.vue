@@ -7,7 +7,9 @@
             Movies by Tom Cruise
             <a-icon type="form" @click="go('watchlist/watchlist-edit')" />
           </p>
-          <p>About this watchlist</p>
+          <p>
+            About this watchlist
+          </p>
           <small> This list lorem ipsum dolor et blah blah blah </small>
         </a-row>
         <a-row id="card-total">
@@ -88,7 +90,6 @@ p {
 
 .watchlist-detail div > p:nth-child(1) {
   font-family: 'Lato';
-  font-style: normal;
   font-weight: 700;
   font-size: 38px;
   line-height: 46px;
@@ -102,10 +103,9 @@ p {
 }
 .watchlist-detail div > p:nth-child(2) {
   font-family: 'Lato';
-  font-style: normal;
   font-weight: 700;
   font-size: 20px;
-  line-height: 4px;
+  line-height: 24px;
   color: #e1e1e1;
   margin-bottom: 10px;
 }
@@ -118,11 +118,6 @@ p {
   display: flex;
   align-items: center;
   color: #e1e1e1;
-  margin-bottom: 70px;
-}
-.watchlist-detail #card-total div {
-  margin-right: 40px;
-  margin-bottom: 40px;
 }
 .watchlist-detail .ant-col {
   width: auto;
@@ -218,7 +213,9 @@ div#card .ant-col {
   }
   .watchlist-detail #card-total div {
     margin-right: 40px;
-    margin-bottom: 70px;
+  }
+  .watchlist-detail #card-total{
+    margin: 70px 0;
   }
 }
 @media only screen and (max-device-width: 420px) {

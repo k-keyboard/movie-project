@@ -2,7 +2,7 @@
   <a-layout>
     <a-layout-content>
       <div class="movie-search">
-        <p class="clear-history">Search Results: {{ search }}</p>
+        <p class="clear-history">Search Results: {{ $store.state.search.textSearch }}</p>
 
         <a-row id="card" type="flex">
           <CardMovie :movies="movies" />
@@ -15,12 +15,6 @@
 import CardMovie from '~/components/CardMovie.vue'
 export default {
   components: { CardMovie },
-  props: {
-    search: {
-      type: String,
-      default: 'movies by Tom Cruise',
-    },
-  },
   data() {
     return {
       movies: [],

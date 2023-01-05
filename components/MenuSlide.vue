@@ -3,7 +3,7 @@
     id="min"
     breakpoint="lg"
     collapsed-width="0"
-    @collapse="onCollapse"
+    class="slidKeyboard"
     @breakpoint="onBreakpoint"
   >
     <div>
@@ -26,15 +26,15 @@
       </div>
 
       <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-        <a-menu-item key="1" @click="push('')">
+        <a-menu-item key="1" @click="$router.push('/')">
           <a-icon type="home" />
           <span class="nav-text">Home</span>
         </a-menu-item>
-        <a-menu-item key="2" @click="push('history')">
+        <a-menu-item key="2" @click="$router.push('/history')">
           <a-icon type="history" />
           <span class="nav-text">History</span>
         </a-menu-item>
-        <a-button id="create" block size="large" @click="push('watchlist')">
+        <a-button id="create" block size="large" @click="$router.push('/watchlist')">
           + Create watchlist
         </a-button>
       </a-menu>
@@ -61,14 +61,14 @@
             <img src="~/assets/icon-button/32.svg" alt="" />
             GUEST
             <a-menu slot="overlay" @click="handleMenuClick">
-              <a-menu-item key="1" @click="push('profile')">
+              <a-menu-item key="1" @click="$router.push('/profile')">
                 <a-icon type="user" />Login
               </a-menu-item>
-              <a-menu-item key="2" @click="push('profile/create-profile')">
-                <a-icon type="user" />Create Profile
+              <a-menu-item key="2" @click="$router.push('/profile/create-profile')">
+                <a-icon type="plus-circle" />Create Profile
               </a-menu-item>
-              <a-menu-item key="3" @click="push('profile/edit-profile')">
-                <a-icon type="user" />Update Profile
+              <a-menu-item key="3" @click="p$router.push('/profile/edit-profile')">
+                <a-icon type="edit" />Update Profile
               </a-menu-item>
             </a-menu>
           </a-dropdown-button>
@@ -79,12 +79,13 @@
 </template>
 <script>
 export default {
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['search'],
+  props: { 
+    search: {
+      type: String,
+      default: ''
+    } 
+  },
   methods: {
-    onCollapse(collapsed, type) {
-      console.log(collapsed, type)
-    },
     onBreakpoint(broken) {
       console.log(broken)
     },
@@ -94,9 +95,6 @@ export default {
     handleMenuClick(e) {
       console.log('click', e)
     },
-    push(path) {
-      this.$router.push('/' + path)
-    },
     onSearch(value) {
       console.log(value)
     },
@@ -105,9 +103,6 @@ export default {
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 aside {
   flex: 0 0 320px !important;
   max-width: 320px !important;
@@ -192,7 +187,7 @@ aside.ant-layout-sider-zero-width {
   border-radius: 6px;
   background: inherit;
   height: 35px;
-  width: 100%;
+  max-width: 247px;
   color: white;
   font-family: 'Lato', sans-serif;
   font-weight: 400;

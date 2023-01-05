@@ -8,18 +8,51 @@
           to use the features of this app
         </h1>
         <div id="components-form-demo-vuex">
-          <a-form>
-            <div>
+          <a-form
+            id="components-form-demo-normal-login"
+            :form="form"
+            class="login-form"
+            @submit="handleSubmit"
+          >
+            <a-form-item>
               <label for="Name">Email *</label><br />
-              <a-input />
-            </div>
-            <div>
+              <a-input
+                v-decorator="[
+                  'userName',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your username!',
+                      },
+                    ],
+                  },
+                ]"
+              >
+              </a-input>
+            </a-form-item>
+            <a-form-item>
               <label for="Name">Password *</label><br />
-              <a-input />
-            </div>
+              <a-input
+                v-decorator="[
+                  'password',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Password!',
+                      },
+                    ],
+                  },
+                ]"
+                type="password"
+              >
+              </a-input>
+            </a-form-item>
 
-            <a-button id="login" block size="large"> Log in </a-button><br />
-            <p>or <a @click="push('create-profile')">create an account</a></p>
+            <a-button id="login" block size="large" html-type="submit" class="login-form-button"> Log in </a-button>
+            <br />
+            <p>or <a @click="$router.push('profile/create-profile')">create an account</a></p>
           </a-form>
         </div>
       </div>
@@ -28,12 +61,20 @@
 </template>
 <script>
 export default {
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
+  },
   methods: {
-    push(path) {
-      this.$router.push('profile/' + path)
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        }
+      });
     },
   },
-}
+};
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
@@ -62,12 +103,13 @@ export default {
 }
 .login label {
   font-family: 'Lato';
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
   color: #e1e1e1;
-  margin-bottom: 5px !important;
+}
+.login form#components-form-demo-normal-login div{
+  margin-bottom: 20px;
 }
 .login .ant-form.ant-form-horizontal {
   display: flex;
@@ -77,7 +119,7 @@ export default {
   margin: 0 auto;
 }
 .login .ant-btn {
-  margin-top: 30px;
+  margin-top: 22px;
   background: #f33f3f !important;
   border: #f33f3f !important;
   font-family: 'Lato';
@@ -91,14 +133,11 @@ export default {
   width: auto;
   margin: 0 auto;
 }
-.login input.ant-input,
-.login textarea.ant-input {
+.login input.ant-input {
   background: transparent;
-  margin-top: 5px;
   color: #e1e1e1;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
-  margin-bottom: 30px;
   min-height: 45px;
   min-width: 250px;
   max-width: 350px;
