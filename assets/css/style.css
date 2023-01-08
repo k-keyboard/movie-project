@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-button#create:hover,
-button#save:hover,
-button#update:hover,
-button#login:hover,
-button#add:hover {
+#btnRedhover:hover {
   background: #ecbfc0 !important;
   color: #141414 !important;
 }

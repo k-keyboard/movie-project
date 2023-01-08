@@ -53,9 +53,22 @@
               </a-input>
             </a-form-item>
 
-            <a-button id="btnRedhover" block size="large" html-type="submit" class="login-form-button"> Log in </a-button>
+            <a-button
+              id="btnRedhover"
+              block
+              size="large"
+              html-type="submit"
+              class="login-form-button"
+            >
+              Log in
+            </a-button>
             <br />
-            <p>or <a @click="$router.push('profile/create-profile')">create an account</a></p>
+            <p>
+              or
+              <a @click="$router.push('profile/create-profile')"
+                >create an account</a
+              >
+            </p>
           </a-form>
         </div>
       </div>
@@ -64,21 +77,38 @@
 </template>
 <script>
 export default {
+  computed: {
+    dataProfile() {
+      return this.$store.state.profile.dataProfile
+    },
+  },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'normal_login' });
+    this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
   methods: {
     handleSubmit(e) {
-      e.preventDefault();
+      e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
-          
+          console.log('Received values of form: ', values)
+          for (let i = 0; i < this.dataProfile.length; i++) {
+            if (values.email === this.dataProfile[i].email) {
+              if (values.password === this.dataProfile[i].password) {
+                alert('login Success')
+                this.$store.commit('profile/updateLogin', i)
+                sessionStorage.setItem("dataProfileIndex",i)
+                this.$router.push('/')
+                return
+              }
+            } else {
+              alert('wrong login , try agin')
+            }
+          }
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
@@ -112,7 +142,7 @@ export default {
   line-height: 22px;
   color: #e1e1e1;
 }
-.login form#components-form-demo-normal-login div{
+.login form#components-form-demo-normal-login div {
   margin-bottom: 20px;
 }
 .login .ant-form.ant-form-horizontal {

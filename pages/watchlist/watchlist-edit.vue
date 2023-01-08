@@ -37,7 +37,7 @@
               </div>
             </div>
           </span>
-          <a-button id="save" block size="large"> Save </a-button>
+          <a-button id="btnRedhover" class="save" block size="large"> Save </a-button>
         </div>
       </div>
     </a-layout-content>
@@ -100,7 +100,7 @@ export default {
   color: #e1e1e1 !important;
   background: none;
 }
-button#save {
+button.save {
   margin-top: 30px;
   background: #f33f3f !important;
   border: #f33f3f !important;

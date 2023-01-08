@@ -9,7 +9,7 @@
         </h1>
         <div id="components-form-demo-vuex">
           <a-form :form="form" @submit="handleSubmit">
-            <a-form-item >
+            <a-form-item>
               <img
                 id="blah"
                 src="~/assets/icon-button/profile.svg"
@@ -26,7 +26,7 @@
                 />
               </span>
             </a-form-item>
-            <a-form-item >
+            <a-form-item>
               <label for="Name">Name *</label><br />
               <a-input
                 v-decorator="[
@@ -43,7 +43,7 @@
                 ]"
               />
             </a-form-item>
-            <a-form-item >
+            <a-form-item>
               <label for="Name">Email *</label><br />
               <a-input
                 v-decorator="[
@@ -63,7 +63,7 @@
                 ]"
               />
             </a-form-item>
-            <a-form-item >
+            <a-form-item>
               <label for="Name">Password *</label><br />
               <a-input
                 v-decorator="[
@@ -81,8 +81,8 @@
               />
             </a-form-item>
 
-            <a-button id="create" html-type="submit" block size="large">
-              Create Profile 
+            <a-button id="btnRedhover" html-type="submit" block size="large">
+              Create Profile
             </a-button>
           </a-form>
         </div>
@@ -118,27 +118,28 @@ export default {
           },
         },
       },
-    };
+    }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'register' });
+    this.form = this.$form.createForm(this, { name: 'register' })
   },
   methods: {
     handleSubmit(e) {
-      e.preventDefault();
+      e.preventDefault()
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          console.log('Received values of form: ', values)
+          this.$store.commit('profile/addData', values)
+          this.$router.push('/profile')
         }
-      });
+      })
     },
     handleConfirmBlur(e) {
-      const value = e.target.value;
-      this.confirmDirty = this.confirmDirty || !!value;
+      const value = e.target.value
+      this.confirmDirty = this.confirmDirty || !!value
     },
-    
   },
-};
+}
 </script>
 
 <style scoped>
@@ -151,7 +152,6 @@ export default {
 .create-profile div:nth-child(1) {
   text-align: center;
 }
-
 
 .create-profile h1 {
   font-family: 'Lato';
@@ -182,10 +182,10 @@ export default {
   line-height: 22px;
   color: #e1e1e1;
 }
-.create-profile form.ant-form.ant-form-horizontal div{
+.create-profile form.ant-form.ant-form-horizontal div {
   margin-bottom: 20px;
 }
-.create-profile form.ant-form.ant-form-horizontal div:nth-child(1){
+.create-profile form.ant-form.ant-form-horizontal div:nth-child(1) {
   margin-bottom: 0;
 }
 .create-profile .ant-form.ant-form-horizontal {
@@ -230,7 +230,7 @@ export default {
   width: auto;
   margin: 0 auto;
 }
-.create-profile input.ant-input{
+.create-profile input.ant-input {
   background: transparent;
   color: #e1e1e1;
   border: 1px solid #e1e1e1;
@@ -271,8 +271,7 @@ img#blah {
 .btn-file input[type='file']::-webkit-file-upload-button {
   display: none;
 }
-.btn.btn-file {
-}
+
 span.text-btn-upload {
   margin: 0 0 0 15px;
 }

@@ -14,7 +14,7 @@
           ref="userNameInput"
           placeholder="Search"
           @search="onSearch"
-          @click="push('search')"
+          @click="$router.push('search')"
         >
           <a-icon
             slot="prefix"
@@ -34,7 +34,12 @@
           <a-icon type="history" />
           <span class="nav-text">History</span>
         </a-menu-item>
-        <a-button id="create" block size="large" @click="$router.push('/watchlist')">
+        <a-button
+          id="btnRedhover"
+          block
+          size="large"
+          @click="$router.push('/watchlist')"
+        >
           + Create watchlist
         </a-button>
       </a-menu>
@@ -46,7 +51,7 @@
             ghost
             block
             size="large"
-            @click="push('watchlist/watchlist-detail')"
+            @click="$router.push('/watchlist/watchlist-detail')"
           >
             <img src="~/assets/icon-button/Group 64.svg" alt="" />
             Movies by Tom Cruise
@@ -59,15 +64,30 @@
         <div id="components-dropdown-demo-placement" class="btn-profile">
           <a-dropdown-button @click="handleButtonClick">
             <img src="~/assets/icon-button/32.svg" alt="" />
-            GUEST
+            <span v-if="dataLogin !== 0">
+              {{ dataLogin.name }}
+            </span>
+            <span v-else>GUEST</span>
             <a-menu slot="overlay" @click="handleMenuClick">
-              <a-menu-item key="1" @click="$router.push('/profile')">
+              <a-menu-item
+                v-if="dataLogin === 0"
+                key="1"
+                @click="$router.push('/profile')"
+              >
                 <a-icon type="user" />Login
               </a-menu-item>
-              <a-menu-item key="2" @click="$router.push('/profile/create-profile')">
+              <a-menu-item
+                v-if="dataLogin === 0"
+                key="2"
+                @click="$router.push('/profile/create-profile')"
+              >
                 <a-icon type="plus-circle" />Create Profile
               </a-menu-item>
-              <a-menu-item key="3" @click="p$router.push('/profile/edit-profile')">
+              <a-menu-item
+                v-if="dataLogin !== 0 && dataLogin.loginStatus == true"
+                key="3"
+                @click="$router.push('/profile/edit-profile')"
+              >
                 <a-icon type="edit" />Update Profile
               </a-menu-item>
             </a-menu>
@@ -79,11 +99,25 @@
 </template>
 <script>
 export default {
-  props: { 
+  props: {
     search: {
       type: String,
-      default: ''
-    } 
+      default: '',
+    },
+  },
+  computed: {
+    dataProfile() {
+      return this.$store.state.profile.dataProfile
+    },
+    // eslint-disable-next-line vue/return-in-computed-property
+    dataLogin() {
+      const index = this.$store.state.profile.dataProfileIndex
+      if (index !== '') {
+        return this.$store.state.profile.dataProfile[index]
+      } else {
+        return 0
+      }
+    },
   },
   methods: {
     onBreakpoint(broken) {

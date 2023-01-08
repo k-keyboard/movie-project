@@ -1,4 +1,9 @@
 export default {
+  loadingIndicator: {
+    name: 'circle',
+    color: '#3B8070',
+    background: 'white'
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
   // ssr: false,

@@ -45,6 +45,7 @@
 import CardMovie from '~/components/CardMovie.vue'
 export default {
   components: { CardMovie },
+  
   data() {
     return {
       movies: [],

@@ -41,7 +41,7 @@
                 :xs="{ span: 24, offset: 1 }"
                 :lg="{ span: 12, offset: 2 }"
               >
-                <a-button id="add">Add to Watchlist</a-button>
+                <a-button id="btnRedhover" class="add-watchlist">Add to Watchlist</a-button>
               </a-col>
             </a-row>
           </a-col>
@@ -214,7 +214,7 @@ div.score > p:nth-child(2) {
   display: flex;
   align-items: center;
 }
-button#add {
+button.add-watchlist {
   background: #f33f3f;
   border-radius: 4px;
   height: 63px;
