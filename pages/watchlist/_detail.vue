@@ -56,14 +56,15 @@ export default {
     dataWatchlist() {
       return this.$store.state.watchlist.dataWatchlist
     },
-      lableMovie() {
-        return this.$store.state.movies.lableMovie
-      },
-    
+    lableMovie() {
+      return this.$store.state.movies.lableMovie
+    },
   },
   watch: {
     lableMovie(newlableMovie, oldlableMovie) {
-      this.changeLable(this.lableMovie)
+      if (this.lableMovie !== null) {
+        this.changeLable(this.lableMovie)
+      }
     },
   },
   mounted() {
@@ -94,7 +95,7 @@ export default {
             year: `${movieMap[i].year}`,
             rating: `${movieMap[i].rating}`,
             image: `${movieMap[i].image}`,
-            lable: '1',
+            lable: false,
             index: `${i}`,
           })
         }
@@ -108,8 +109,9 @@ export default {
   methods: {
     changeLable(index) {
       console.log(index)
-      this.movies[index].lable = '2'
-      console.log(this.movies[index]);
+      this.movies[index].lable = !this.movies[index].lable
+      console.log(this.movies[index])
+      this.$store.commit('movies/changeLable', null)
     },
   },
 }

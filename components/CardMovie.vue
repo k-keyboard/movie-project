@@ -6,17 +6,19 @@
         :flex="1"
       >
         <img
-          v-if="movie.lable === '1'"
+          v-if="movie.lable === false"
           id="lable-c"
           src="~/assets/card-images/check-white.svg"
           alt=""
           @click="changeLable(movie.index)"
         />
         <img
-          v-else-if="movie.lable === '2'"
+          v-else-if="movie.lable === true"
           id="lable-c"
           src="~/assets/card-images/check-green.svg"
           alt=""
+          @click="changeLable(movie.index)"
+
         />
         <img
           v-else
