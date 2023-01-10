@@ -86,27 +86,53 @@ export default {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
   methods: {
+    openNotification() {
+      this.$notification.open({
+        message: 'Notification Title',
+        description:
+          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        onClick: () => {
+          console.log('Notification Clicked!');
+        },
+      });
+    },
+  },
     handleSubmit(e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
-          for (let i = 0; i < this.dataProfile.length; i++) {
-            if (values.email === this.dataProfile[i].email) {
-              if (values.password === this.dataProfile[i].password) {
-                alert('login Success')
-                this.$store.commit('profile/updateLogin', i)
-                sessionStorage.setItem("dataProfileIndex",i)
-                this.$router.push('/')
-                return
-              }
-            } else {
-              alert('wrong login , try agin')
+
+          // login
+          const dataLogins = this.dataProfile
+          const loginCheck = dataLogins.filter(
+            (dataLogin) => dataLogin.email === values.email
+          )
+
+          let dataProfileID = -1
+          for (let i = 0; i < dataLogins.length; i++) {
+            if (dataLogins[i].email === loginCheck[0].email) {
+              console.log('index is ', i);
+              dataProfileID = i
+              break
             }
+          }
+          if (loginCheck.length > 0) {
+            console.log('have email in store and index =', dataProfileID)
+            if (values.password === this.dataProfile[dataProfileID].password) {
+              this.$store.commit('profile/updateLogin', dataProfileID)
+              this.$router.push('/')
+              alert('login Success')
+            } else {
+              alert('wrong password login , try agin')
+            }
+          } else {
+            alert('wrong login , try agin')
           }
         }
       })
     },
+
   },
 }
 </script>
