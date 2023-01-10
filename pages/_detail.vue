@@ -59,7 +59,28 @@
                     <span>{{ movieDetail.title }}</span>
                   </p>
                   <p>To watchlist:</p>
-                  <p></p>
+                  <p>
+                    <a-button
+                      v-for="(watchlist, index) in dataWatchlist"
+                      :key="index"
+                      class="btn-watchlist"
+                      block
+                      size="large"
+                    >
+                      <img src="~/assets/icon-button/Group 64.svg" alt="" />
+                      {{ watchlist.name }}
+                    </a-button>
+                    <a-button
+                      v-if="dataLogin !== 0"
+                      id="btnRedhover"
+                      class="btn-red"
+                      block
+                      size="large"
+                      @click="$router.push('/watchlist')"
+                    >
+                      <span class="icon">+</span> New watchlist
+                    </a-button>
+                  </p>
                 </a-modal>
               </a-col>
             </a-row>
@@ -68,7 +89,7 @@
         <p id="related-movies">Related Movies</p>
 
         <a-row id="card" type="flex">
-          <CardMovie :movies="movies" :limit="5" />
+          <CardMovie :movies="movies" />
         </a-row>
       </div>
     </a-layout-content>
@@ -86,48 +107,64 @@ export default {
       modal2Visible: false,
     }
   },
-  mounted() {
-    const id = this.$route.params.detail
-
-    const axios1 = require('axios')
-    const options = {
-      method: 'GET',
-      url: `https://imdb-top-100-movies.p.rapidapi.com/${id}`,
-      headers: {
-        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
-        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-      },
-    }
-
-    axios1
-      .request(options)
-      .then((response) => {
-        this.movieDetail = response.data
-        console.log(this.movieDetail)
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
-
-    const vm = this
-    const axios2 = require('axios')
-    const options2 = {
-      method: 'GET',
-      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-      headers: {
-        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
-        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-      },
-    }
-    axios2
-      .request(options2)
-      .then(function (response) {
-        vm.movies = response.data
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
+  computed: {
+    dataProfile() {
+      return this.$store.state.profile.dataProfile
+    },
+    dataWatchlist() {
+      return this.$store.state.watchlist.dataWatchlist
+    },
+    dataLogin() {
+      const index = this.$store.state.profile.dataProfileIndex
+      if (index !== '') {
+        return this.$store.state.profile.dataProfile[index]
+      } else {
+        return 0
+      }
+    },
   },
+  // mounted() {
+  //   const id = this.$route.params.detail
+
+  //   const axios1 = require('axios')
+  //   const options = {
+  //     method: 'GET',
+  //     url: `https://imdb-top-100-movies.p.rapidapi.com/${id}`,
+  //     headers: {
+  //       'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+  //       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+  //     },
+  //   }
+
+  //   axios1
+  //     .request(options)
+  //     .then((response) => {
+  //       this.movieDetail = response.data
+  //       console.log(this.movieDetail)
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error)
+  //     })
+
+  //   const vm = this
+  //   const axios2 = require('axios')
+  //   const options2 = {
+  //     method: 'GET',
+  //     url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+  //     headers: {
+  //       'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+  //       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+  //     },
+  //   }
+  //   axios2
+  //     .request(options2)
+  //     .then(function (response) {
+  //       vm.movies = response.data
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error)
+  //     })
+  // },
   methods: {
     setModal1Visible(modal1Visible) {
       this.modal1Visible = modal1Visible
@@ -216,6 +253,50 @@ export default {
   line-height: 24px;
   margin: 0;
   color: #e1e1e1;
+}
+::v-deep .ant-btn.btn-red{
+  background: #f33f3f;
+  border: #f33f3f;
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: left;
+  max-width: 247px;
+  color: #141414;
+  padding: 0;
+  cursor: pointer;
+}
+::v-deep .ant-btn.btn-watchlist{
+  background: #000000;
+  border: none;
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: left;
+  max-width: 247px;
+  color: #e1e1e1;
+  padding: 12px;
+  cursor: pointer;
+  margin: 0 0 15px 0;
+}
+::v-deep .ant-btn.btn-watchlist > span{
+  margin: 0 16px;
+}
+::v-deep .ant-btn.btn-red > span.icon {
+  font-size: 20px;
+  text-align: center;
+  background: #d9d9d9;
+  border-radius: 8px;
+  width: 22px;
+  height: 22px;
+  margin: 10px;
+}
+.movie-detail button.btn-watchlist{
+  background: #000000;
+border-radius: 6px;
+color: #e1e1e1;
 }
 .movie-detail div.score > p:nth-child(2) {
   font-family: 'Lato';

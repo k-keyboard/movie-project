@@ -1,5 +1,7 @@
 export const state = () => ({
-  dataProfile: [],
+  dataProfile: [
+    {name:'Keyboard',email:'key@gmail.com',password:'123456',statusLogin:false}
+  ],
   dataProfileIndex: '',
   statusLogin:''
 })

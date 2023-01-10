@@ -11,7 +11,7 @@
 
       <div class="components-input-demo-presuffix">
         <a-input-search
-          ref="userNameInput"
+          ref="searchInput"
           placeholder="Search"
           @search="onSearch"
           @keydown.enter="$router.push('/search')"
@@ -117,7 +117,6 @@ export default {
     dataWatchlist() {
       return this.$store.state.watchlist.dataWatchlist
     },
-    // eslint-disable-next-line vue/return-in-computed-property
     dataLogin() {
       const index = this.$store.state.profile.dataProfileIndex
       if (index !== '') {

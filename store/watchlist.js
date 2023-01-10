@@ -1,5 +1,8 @@
 export const state = () => ({
-  dataWatchlist: [],
+  dataWatchlist: [
+    {name:'Test Watchlist 01',description:'test system list data Watchlist',watchlistID:'123456'},
+    {name:'Test Watchlist 02',description:'test system list data Watchlist',watchlistID:'123456'}
+  ],
 })
 
 export const mutations = {

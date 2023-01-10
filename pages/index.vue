@@ -25,6 +25,8 @@
           enter-button="Search"
           size="large"
           @search="onSearch"
+          @keydown.enter="$router.push('/search')"
+
         >
           <a-icon
             slot="prefix"
@@ -74,6 +76,7 @@ export default {
   methods: {
     onSearch(value) {
       console.log(value)
+      this.$store.commit('search/addInput', value)
     },
     viewDetail(id) {
       this.$router.push('/' + id)
