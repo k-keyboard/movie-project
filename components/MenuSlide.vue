@@ -14,7 +14,7 @@
           ref="userNameInput"
           placeholder="Search"
           @search="onSearch"
-          @click="$router.push('search')"
+          @keydown.enter="$router.push('/search')"
         >
           <a-icon
             slot="prefix"
@@ -35,6 +35,7 @@
           <span class="nav-text">History</span>
         </a-menu-item>
         <a-button
+        v-if="dataLogin !== 0"
           id="btnRedhover"
           block
           size="large"
@@ -43,18 +44,20 @@
           + Create watchlist
         </a-button>
       </a-menu>
-      <div class="my-list">
+      <div v-if="dataLogin !== 0" class="my-list">
         <hr />
         <p>My Lists</p>
-        <div>
+        <div >
           <a-button
+          v-for="(watchlist, index) in dataWatchlist"
+          :key="index"
             ghost
             block
             size="large"
-            @click="$router.push('/watchlist/watchlist-detail')"
+            @click="$router.push('/watchlist/'+ index)"
           >
             <img src="~/assets/icon-button/Group 64.svg" alt="" />
-            Movies by Tom Cruise
+            {{watchlist.name}}
           </a-button>
         </div>
       </div>
@@ -63,7 +66,8 @@
       <a-row type="flex">
         <div id="components-dropdown-demo-placement" class="btn-profile">
           <a-dropdown-button @click="handleButtonClick">
-            <img src="~/assets/icon-button/32.svg" alt="" />
+            <img v-if="dataLogin !== 0" src="~/assets/icon-button/Ellipse 6.svg" height="32" alt="" />
+            <img v-else src="~/assets/icon-button/32.svg" alt="" />
             <span v-if="dataLogin !== 0">
               {{ dataLogin.name }}
             </span>
@@ -90,6 +94,13 @@
               >
                 <a-icon type="edit" />Update Profile
               </a-menu-item>
+              <a-menu-item
+                v-if="dataLogin !== 0 && dataLogin.loginStatus == true"
+                key="4"
+                @click="logout"
+              >
+                <a-icon type="logout" />Logout
+              </a-menu-item>
             </a-menu>
           </a-dropdown-button>
         </div>
@@ -99,15 +110,12 @@
 </template>
 <script>
 export default {
-  props: {
-    search: {
-      type: String,
-      default: '',
-    },
-  },
   computed: {
     dataProfile() {
       return this.$store.state.profile.dataProfile
+    },
+    dataWatchlist() {
+      return this.$store.state.watchlist.dataWatchlist
     },
     // eslint-disable-next-line vue/return-in-computed-property
     dataLogin() {
@@ -131,6 +139,12 @@ export default {
     },
     onSearch(value) {
       console.log(value)
+      this.$store.commit('search/addInput', value)
+    },
+    logout() {
+      const index = this.$store.state.profile.dataProfileIndex
+      this.$store.commit('profile/updateLogout', index)
+      this.$router.push('/profile')
     },
   },
 }

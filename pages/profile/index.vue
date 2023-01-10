@@ -96,7 +96,6 @@ export default {
         },
       });
     },
-  },
     handleSubmit(e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {

@@ -4,13 +4,11 @@
       <div class="watchlist-detail">
         <a-row>
           <p>
-            Movies by Tom Cruise
-            <a-icon type="form" @click="go('watchlist/watchlist-edit')" />
+            {{ dataWatchlistDetail.name }}
+            <a-icon type="form" @click="$router.push({name:'watchlist-edit',query:{watchlistid:id}})" />
           </p>
-          <p>
-            About this watchlist
-          </p>
-          <small> This list lorem ipsum dolor et blah blah blah </small>
+          <p>About this watchlist</p>
+          <small> {{ dataWatchlistDetail.description }} </small>
         </a-row>
         <a-row id="card-total">
           <a-col :xs="{ span: 12 }" :lg="{ span: 5 }">
@@ -40,35 +38,44 @@ export default {
   components: { CardMovie },
   data() {
     return {
+      id: this.$route.params.detail,
       movies: [],
+      dataWatchlistDetail: [],
     }
   },
+  computed: {
+    dataWatchlist() {
+      return this.$store.state.watchlist.dataWatchlist
+    },
+  },
   mounted() {
-    const vm = this
-    const axios = require('axios')
-    const options = {
-      method: 'GET',
-      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-      headers: {
-        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
-        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-      },
-    }
-    axios
-      .request(options)
-      .then(function (response) {
-        vm.movies = response.data
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
+    const id = this.$route.params.detail
+    console.log(id)
+    this.dataWatchlistDetail = this.dataWatchlist[id]
+    console.log('list', this.dataWatchlistDetail)
+
+    //   const vm = this
+    //   const axios = require('axios')
+    //   const options = {
+    //     method: 'GET',
+    //     url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+    //     headers: {
+    //       'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+    //       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+    //     },
+    //   }
+    //   axios
+    //     .request(options)
+    //     .then(function (response) {
+    //       vm.movies = response.data
+    //     })
+    //     .catch(function (error) {
+    //       console.error(error)
+    //     })
   },
   methods: {
     onSearch(value) {
       console.log(value)
-    },
-    go(id) {
-      this.$router.push('/' + id)
     },
   },
 }
@@ -214,7 +221,7 @@ div#card .ant-col {
   .watchlist-detail #card-total div {
     margin-right: 40px;
   }
-  .watchlist-detail #card-total{
+  .watchlist-detail #card-total {
     margin: 70px 0;
   }
 }

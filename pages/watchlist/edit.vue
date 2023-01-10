@@ -7,9 +7,9 @@
           background: '#161616',
           minHeight: '100vh',
         }"
-        class="watchlist-create"
+        class="watchlist-edit"
       >
-        <h1>Create a new Watchlist</h1>
+        <h1>Edit your Watchlist <a @click="deleteWatchlist(dataWatchlistDetail.watchlistID)">Delete Watchlist</a></h1>
         <div id="components-form-demo-vuex">
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item>
@@ -18,6 +18,7 @@
                 v-decorator="[
                   'name',
                   {
+                    initialValue: dataWatchlistDetail.name,
                     rules: [
                       {
                         required: true,
@@ -35,6 +36,7 @@
                 v-decorator="[
                   'description',
                   {
+                    initialValue: dataWatchlistDetail.description,
                     rules: [
                       {
                         required: true,
@@ -45,10 +47,46 @@
                 ]"
                 :rows="10"
               />
+              <a-input
+              v-decorator="[
+                'idList',
+                {
+                  initialValue: id,
+                },
+              ]"
+              type="hidden"
+            />
             </a-form-item>
 
-            <a-button id="btnRedhover" html-type="submit" block size="large">
-              Create Watchlist
+            
+
+            <label for="Name">Movie</label>
+            <div></div>
+            <span v-for="n in maxList" :key="n">
+              <div id="list-movie">
+                <div id="img-card">
+                  <img
+                    src="~/assets/card-images/poster1 1.png"
+                    height="75"
+                    alt=""
+                  />
+                  <font>Top Gun: Maverick (2022)</font>
+                </div>
+                <div>
+                  <a-button id="remove" type="danger" ghost @click="removeMax">
+                    Remove
+                  </a-button>
+                </div>
+              </div>
+            </span>
+            <a-button
+              id="btnRedhover"
+              class="save"
+              html-type="submit"
+              block
+              size="large"
+            >
+              Save
             </a-button>
           </a-form>
         </div>
@@ -60,6 +98,9 @@
 export default {
   data() {
     return {
+      id: this.$route.query.watchlistid,
+      dataWatchlistDetail: [],
+      maxList: 3,
       confirmDirty: false,
       autoCompleteResult: [],
       formItemLayout: {
@@ -86,17 +127,34 @@ export default {
       },
     }
   },
+  computed: {
+    dataWatchlist() {
+      return this.$store.state.watchlist.dataWatchlist
+    },
+  },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'register' })
   },
+  mounted() {
+    const id = this.$route.query.watchlistid
+    console.log(id)
+    this.dataWatchlistDetail = this.dataWatchlist[id]
+    console.log('list', this.dataWatchlistDetail)
+  },
   methods: {
+    removeMax() {
+      this.maxList = this.maxList - 1
+    },
+    deleteWatchlist(id){
+          this.$store.commit('watchlist/deleteData', id)
+    },
     handleSubmit(e) {
       e.preventDefault()
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
-          this.$store.commit('watchlist/addData', values)
-          this.$router.push('/watchlist')
+          this.$store.commit('watchlist/updateData', values)
+          // this.$router.push('/watchlist')
         }
       })
     },
@@ -109,7 +167,7 @@ export default {
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
-.watchlist-create h1 {
+.watchlist-edit h1 {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
@@ -117,16 +175,41 @@ export default {
   line-height: 38px;
   color: #e1e1e1;
   margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
 }
-.watchlist-create label {
+.watchlist-edit h1 > a {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: right;
+  text-decoration-line: underline;
+  color: #f33f3f;
+}
+.watchlist-edit label {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
   color: #e1e1e1;
+  margin-bottom: 5px !important;
 }
-.watchlist-create .ant-btn {
+.watchlist-edit #remove {
+  margin: 17px 15px;
+  padding: 10px;
+  height: 41px;
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #e1e1e1 !important;
+  background: none;
+}
+button.save {
+  margin-top: 30px;
   background: #f33f3f !important;
   border: #f33f3f !important;
   font-family: 'Lato';
@@ -138,19 +221,39 @@ export default {
   max-width: 247px;
   color: #141414 !important;
 }
-.watchlist-create input.ant-input,
-.watchlist-create textarea.ant-input {
+button#remove:hover {
+  background: #f33f3f !important;
+  color: #141414 !important;
+}
+.watchlist-edit input.ant-input,
+.watchlist-edit textarea.ant-input {
   background: transparent;
   color: #e1e1e1;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
   min-height: 45px;
 }
-.watchlist-create form.ant-form.ant-form-horizontal div {
+.watchlist-edit .ant-form-item-with-help {
   margin-bottom: 30px;
 }
-
-
+.watchlist-edit div#list-movie {
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  display: flex;
+  color: #e1e1e1;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.watchlist-edit div#list-movie #img-card > font {
+  margin-left: 15px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #e1e1e1;
+}
 #components-form-demo-vuex .language-bash {
   max-width: 400px;
   border-radius: 6px;
@@ -161,11 +264,7 @@ export default {
     max-width: 150px;
     min-width: 150px;
     width: 150px;
-  }
-}
-@media only screen and (min-device-width: 300px) and (max-device-width: 787px) {
-  .watchlist-create {
-    padding-left: 50px !important;
+    /* display: table-cell; */
   }
 }
 </style>

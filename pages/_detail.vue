@@ -41,7 +41,26 @@
                 :xs="{ span: 24, offset: 1 }"
                 :lg="{ span: 12, offset: 2 }"
               >
-                <a-button id="btnRedhover" class="add-watchlist">Add to Watchlist</a-button>
+                <a-button
+                  id="btnRedhover"
+                  class="add-watchlist"
+                  @click="() => (modal2Visible = true)"
+                >
+                  Add to Watchlist
+                </a-button>
+                <a-modal
+                  v-model="modal2Visible"
+                  title="Add Movie"
+                  centered
+                  @ok="() => (modal2Visible = false)"
+                >
+                  <p>
+                    Add Movie:
+                    <span>{{ movieDetail.title }}</span>
+                  </p>
+                  <p>To watchlist:</p>
+                  <p></p>
+                </a-modal>
               </a-col>
             </a-row>
           </a-col>
@@ -64,6 +83,7 @@ export default {
       id: this.$route.params.detail,
       movieDetail: [],
       movies: [],
+      modal2Visible: false,
     }
   },
   mounted() {
@@ -109,8 +129,8 @@ export default {
       })
   },
   methods: {
-    onSearch(value) {
-      console.log(value)
+    setModal1Visible(modal1Visible) {
+      this.modal1Visible = modal1Visible
     },
   },
 }
@@ -120,13 +140,13 @@ export default {
 .movie-detail {
   padding: 50px 60px;
 }
-#image-detail {
+.movie-detail #image-detail {
   margin-right: 45px;
 }
-#image-detail img {
+.movie-detail #image-detail img {
   border-radius: 6px;
 }
-#text-detail > p:nth-child(1) {
+.movie-detail #text-detail > p:nth-child(1) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -136,7 +156,7 @@ export default {
   margin: 0;
   color: #e1e1e1;
 }
-#text-detail > p:nth-child(2) {
+.movie-detail #text-detail > p:nth-child(2) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
@@ -146,7 +166,7 @@ export default {
   margin: 0;
   color: #e1e1e1;
 }
-#text-detail > p:nth-child(3) {
+.movie-detail #text-detail > p:nth-child(3) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -156,10 +176,10 @@ export default {
   margin: 0;
   color: #ffffff;
 }
-#text-detail > p:nth-child(2) > span {
+.movie-detail #text-detail > p:nth-child(2) > span {
   margin: 0 15px;
 }
-#text-detail > p:nth-child(4) {
+.movie-detail #text-detail > p:nth-child(4) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
@@ -170,15 +190,15 @@ export default {
   margin: 0;
   color: #e1e1e1;
 }
-.ant-row-flex.ant-row-flex-start {
+.movie-detail .ant-row-flex.ant-row-flex-start {
   margin: 0;
   padding-top: 56px;
   align-content: center;
 }
-.ant-col-xs-offset-1 {
+.movie-detail .ant-col-xs-offset-1 {
   margin-left: 0;
 }
-div.score {
+.movie-detail div.score {
   background: rgba(217, 217, 217, 0.1);
   border: 1px solid #a41b1b;
   border-radius: 8px;
@@ -188,7 +208,7 @@ div.score {
   height: auto;
   margin: 0;
 }
-div.score > p:nth-child(1) {
+.movie-detail div.score > p:nth-child(1) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -197,7 +217,7 @@ div.score > p:nth-child(1) {
   margin: 0;
   color: #e1e1e1;
 }
-div.score > p:nth-child(2) {
+.movie-detail div.score > p:nth-child(2) {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
@@ -207,14 +227,46 @@ div.score > p:nth-child(2) {
   margin: 0;
   margin-top: 15px;
 }
-.ant-row-flex.ant-row-flex-start
+::v-deep .ant-modal-content {
+  position: relative;
+  background-color: #161616;
+  background-clip: padding-box;
+  color: #e1e1e1;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+::v-deep .ant-modal-close {
+  color: #e1e1e1;
+}
+::v-deep .ant-modal-header,
+::v-deep .ant-modal-footer {
+  display: none;
+}
+::v-deep .ant-modal-body {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  color: #e1e1e1;
+}
+::v-deep .ant-modal-body > p {
+  font-size: 16px;
+  line-height: 19px;
+}
+::v-deep .ant-modal-body > p:nth-child(1) > span {
+  font-size: 20px;
+  line-height: 24px;
+  padding-left: 20px;
+}
+.movie-detail
+  .ant-row-flex.ant-row-flex-start
   > .ant-col.ant-col-xs-24.ant-col-xs-offset-1.ant-col-lg-12.ant-col-lg-offset-2 {
   margin-left: 0;
-  margin-top: 40px;
   display: flex;
   align-items: center;
 }
-button.add-watchlist {
+.movie-detail button.add-watchlist {
   background: #f33f3f;
   border-radius: 4px;
   height: 63px;
@@ -227,28 +279,27 @@ button.add-watchlist {
   color: #000000;
   cursor: pointer;
 }
-div#card {
+.movie-detail div#card {
   margin: 0px !important;
 }
 .ant-card-bordered {
   border: none;
 }
-div#card .ant-col {
+.movie-detail div#card .ant-col {
   max-width: 150px;
   min-width: 150px;
 }
-.ant-card {
+.movie-detail .ant-card {
   background: #1f1f1f;
   height: 100% !important;
   color: #e1e1e1;
 }
-
-.ant-col > img#lable {
+.movie-detail .ant-col > img#lable {
   position: absolute;
   z-index: 999;
   cursor: pointer;
 }
-div#score {
+.movie-detail div#score {
   display: flex;
   flex-direction: row;
   font-family: 'Lato';
@@ -259,16 +310,16 @@ div#score {
   align-content: flex-start;
   justify-content: flex-end;
 }
-div#score > div:nth-child(1) {
+.movie-detail div#score > div:nth-child(1) {
   font-size: 16px;
   line-height: 19px;
 }
-div#score > div:nth-child(2) {
+.movie-detail div#score > div:nth-child(2) {
   font-size: 16px;
   line-height: 19px;
   margin-left: 5px;
 }
-div#score > div:nth-child(3) {
+.movie-detail div#score > div:nth-child(3) {
   font-size: 10px;
   line-height: 12px;
 }

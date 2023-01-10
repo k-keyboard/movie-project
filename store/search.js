@@ -1,5 +1,5 @@
 export const state = () => ({
-    textSearch:'movies by Tom Cruise'
+    textSearch:''
     
   })
   
@@ -9,11 +9,13 @@ export const state = () => ({
   }
   
   export const mutations = {
-       
+       addInput(state, searchText){
+          state.textSearch = searchText
+       }
   }
   
   export const getters = {
-    getData(state){
+    getSearch(state){
         return state.textSearch
       }
   }
