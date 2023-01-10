@@ -1,68 +1,71 @@
 <template>
-    <a-row id="card-movie" type="flex">
-      <a-col
-        v-for="(movie, index) in movies.slice(0, limit)"
-        :key="index"
-        :flex="1"
+  <a-row id="card-movie" type="flex">
+    <a-col
+      v-for="(movie, index) in movies.slice(0, limit)"
+      :key="index"
+      :flex="1"
+    >
+      <img
+        v-if="movie.lable === false"
+        id="lable-c"
+        src="~/assets/card-images/check-white.svg"
+        alt=""
+        @click="changeLable(movie.index)"
+      />
+      <img
+        v-else-if="movie.lable === true"
+        id="lable-c"
+        src="~/assets/card-images/check-green.svg"
+        alt=""
+        @click="changeLable(movie.index)"
+      />
+      <img
+        v-else
+        id="lable"
+        src="~/assets/icon-button/Property 1=Default.svg"
+        alt=""
+      />
+      <a-card
+        hoverable
+        style="width: 100%"
+        @click="$router.push(`/${movie.id}`)"
       >
-        <img
-          v-if="movie.lable === false"
-          id="lable-c"
-          src="~/assets/card-images/check-white.svg"
-          alt=""
-          @click="changeLable(movie.index)"
-        />
-        <img
-          v-else-if="movie.lable === true"
-          id="lable-c"
-          src="~/assets/card-images/check-green.svg"
-          alt=""
-          @click="changeLable(movie.index)"
+        <img id="cover" slot="cover" alt="example" :src="movie.image" />
 
-        />
-        <img
-          v-else
-          id="lable"
-          src="~/assets/icon-button/Property 1=Default.svg"
-          alt=""
-        />
-        <a-card hoverable style="width: 100%">
-          <img id="cover" slot="cover" alt="example" :src="movie.image" />
-
-          <div id="score">
-            <div>
-              <img
-                v-if="movie.rating * 10 > 80"
-                src="~/assets/card-images/Vector.svg"
-                height="19"
-                alt=""
-              />
-              <img
-                v-else-if="movie.rating * 10 >= 50"
-                src="~/assets/card-images/Vector (1).svg"
-                height="19"
-                alt=""
-              />
-              <img
-                v-else
-                src="~/assets/card-images/Vector (2).svg"
-                height="19"
-                alt=""
-              />
-            </div>
-            <div>
-              {{ movie.rating * 10 }}
-            </div>
-            <div>/100</div>
+        <div id="score">
+          <div>
+            <img
+              v-if="movie.rating * 10 > 80"
+              src="~/assets/card-images/Vector.svg"
+              height="19"
+              alt=""
+            />
+            <img
+              v-else-if="movie.rating * 10 >= 50"
+              src="~/assets/card-images/Vector (1).svg"
+              height="19"
+              alt=""
+            />
+            <img
+              v-else
+              src="~/assets/card-images/Vector (2).svg"
+              height="19"
+              alt=""
+            />
           </div>
+          <div>
+            {{ movie.rating * 10 }}
+          </div>
+          <div>/100</div>
+        </div>
 
-          <p>
-            {{ movie.title }} <br />
-            ({{ movie.year }})
-          </p>
-        </a-card>
-      </a-col>
-    </a-row>
+        <p>
+          {{ movie.title }} <br />
+          ({{ movie.year }})
+        </p>
+      </a-card>
+    </a-col>
+  </a-row>
 </template>
 
 <script>
@@ -87,8 +90,6 @@ export default {
     changeLable(index) {
       console.log(index)
       this.$store.commit('movies/changeLable', index)
-
-
     },
   },
 }
