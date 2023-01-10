@@ -1,6 +1,7 @@
 export const state = () => ({
   dataProfile: [],
   dataProfileIndex: '',
+  statusLogin:''
 })
 
 export const mutations = {
@@ -25,6 +26,9 @@ export const mutations = {
   updateLogout(state, i) {
     state.dataProfile[i].loginStatus = false
     state.dataProfileIndex = ''
+  },
+  updateStatusLogin(state, status) {
+    state.statusLogin = status
   },
 }
 

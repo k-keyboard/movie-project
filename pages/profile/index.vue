@@ -7,6 +7,7 @@
           Please log in or create an account <br />
           to use the features of this app
         </h1>
+        <a-button @click="openNotificationWithIcon('error')"> Error </a-button>
         <div id="components-form-demo-vuex">
           <a-form
             id="components-form-demo-normal-login"
@@ -81,21 +82,20 @@ export default {
     dataProfile() {
       return this.$store.state.profile.dataProfile
     },
+    statusLogin() {
+      return this.$store.state.profile.statusLogin
+    },
+  },
+  watch: {
+    statusLogin(newstatusLogin, oldstatusLogin) {
+      this.openNotificationWithIcon(this.statusLogin)
+    },
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
+
   methods: {
-    openNotification() {
-      this.$notification.open({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
-      });
-    },
     handleSubmit(e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
@@ -104,34 +104,42 @@ export default {
 
           // login
           const dataLogins = this.dataProfile
+
           const loginCheck = dataLogins.filter(
             (dataLogin) => dataLogin.email === values.email
           )
-
-          let dataProfileID = -1
-          for (let i = 0; i < dataLogins.length; i++) {
-            if (dataLogins[i].email === loginCheck[0].email) {
-              console.log('index is ', i);
-              dataProfileID = i
-              break
-            }
-          }
           if (loginCheck.length > 0) {
+            let dataProfileID = -1
+
+            for (let i = 0; i < dataLogins.length; i++) {
+              if (dataLogins[i].email === loginCheck[0].email) {
+                console.log('index is ', i)
+                dataProfileID = i
+                break
+              }
+            }
             console.log('have email in store and index =', dataProfileID)
             if (values.password === this.dataProfile[dataProfileID].password) {
               this.$store.commit('profile/updateLogin', dataProfileID)
               this.$router.push('/')
-              alert('login Success')
+              this.$store.commit('profile/updateStatusLogin', 'success')
             } else {
-              alert('wrong password login , try agin')
+              this.$store.commit('profile/updateStatusLogin', 'warning')
             }
           } else {
-            alert('wrong login , try agin')
+            console.log('error')
+            this.$store.commit('profile/updateStatusLogin', 'error')
           }
         }
       })
     },
-
+    openNotificationWithIcon(type) {
+      this.$notification[type]({
+        message: 'Notification Title',
+        description:
+          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      })
+    },
   },
 }
 </script>
