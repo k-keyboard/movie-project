@@ -57,18 +57,7 @@ export default {
           )
           console.log('search list total', movieSearch.length)
           console.log('search value = ', vm.searchTitleMovie)
-          const movieNew = [];
-          for(let i=0; i < movieSearch.length; i++){
-               movieNew.push({
-                  id:`${movieSearch[i].id}`,
-                  title:`${movieSearch[i].title}`,
-                  year:`${movieSearch[i].year}`,
-                  rating:`${movieSearch[i].title}`,
-                  image:`${movieSearch[i].image}`,
-                  
-                })
-            }
-          console.log('movie new =',movieNew);
+
           console.log(movieSearch);
           vm.movies = movieSearch
         })

@@ -4,16 +4,16 @@
         v-for="(movie, index) in movies.slice(0, limit)"
         :key="index"
         :flex="1"
-        @click="$router.push(`${movie.id}`)"
       >
         <img
-          v-if="lable === 1"
+          v-if="movie.lable === '1'"
           id="lable-c"
           src="~/assets/card-images/check-white.svg"
           alt=""
+          @click="changeLable(movie.index)"
         />
         <img
-          v-else-if="lable === 2"
+          v-else-if="movie.lable === '2'"
           id="lable-c"
           src="~/assets/card-images/check-green.svg"
           alt=""
@@ -82,8 +82,11 @@ export default {
   },
 
   methods: {
-    onSearch(value) {
-      console.log(value)
+    changeLable(index) {
+      console.log(index)
+      this.$store.commit('movies/changeLable', index)
+
+
     },
   },
 }
@@ -158,6 +161,7 @@ export default {
 }
 #card-movie .ant-card {
   background: #1f1f1f;
+  z-index: 5;
   height: 100% !important;
   color: #e1e1e1;
 }

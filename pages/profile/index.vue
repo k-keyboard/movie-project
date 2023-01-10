@@ -7,7 +7,7 @@
           Please log in or create an account <br />
           to use the features of this app
         </h1>
-        <a-button @click="openNotificationWithIcon('error')"> Error </a-button>
+        
         <div id="components-form-demo-vuex">
           <a-form
             id="components-form-demo-normal-login"

@@ -5,7 +5,15 @@
         <a-row>
           <p>
             {{ dataWatchlistDetail.name }}
-            <a-icon type="form" @click="$router.push({name:'watchlist-edit',query:{watchlistid:id}})" />
+            <a-icon
+              type="form"
+              @click="
+                $router.push({
+                  name: 'watchlist-edit',
+                  query: { watchlistid: id },
+                })
+              "
+            />
           </p>
           <p>About this watchlist</p>
           <small> {{ dataWatchlistDetail.description }} </small>
@@ -40,12 +48,22 @@ export default {
     return {
       id: this.$route.params.detail,
       movies: [],
+      movieAll: [],
       dataWatchlistDetail: [],
     }
   },
   computed: {
     dataWatchlist() {
       return this.$store.state.watchlist.dataWatchlist
+    },
+      lableMovie() {
+        return this.$store.state.movies.lableMovie
+      },
+    
+  },
+  watch: {
+    lableMovie(newlableMovie, oldlableMovie) {
+      this.changeLable(this.lableMovie)
     },
   },
   mounted() {
@@ -54,28 +72,44 @@ export default {
     this.dataWatchlistDetail = this.dataWatchlist[id]
     console.log('list', this.dataWatchlistDetail)
 
-    //   const vm = this
-    //   const axios = require('axios')
-    //   const options = {
-    //     method: 'GET',
-    //     url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-    //     headers: {
-    //       'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
-    //       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-    //     },
-    //   }
-    //   axios
-    //     .request(options)
-    //     .then(function (response) {
-    //       vm.movies = response.data
-    //     })
-    //     .catch(function (error) {
-    //       console.error(error)
-    //     })
+    const vm = this
+    const axios = require('axios')
+    const options = {
+      method: 'GET',
+      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+      headers: {
+        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    }
+    axios
+      .request(options)
+      .then(function (response) {
+        const movieMap = response.data
+        const movieNew = []
+        for (let i = 0; i < movieMap.length; i++) {
+          movieNew.push({
+            id: `${movieMap[i].id}`,
+            title: `${movieMap[i].title}`,
+            year: `${movieMap[i].year}`,
+            rating: `${movieMap[i].rating}`,
+            image: `${movieMap[i].image}`,
+            lable: '1',
+            index: `${i}`,
+          })
+        }
+        vm.movies = movieNew
+        console.log('movie new =', movieNew)
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
   },
   methods: {
-    onSearch(value) {
-      console.log(value)
+    changeLable(index) {
+      console.log(index)
+      this.movies[index].lable = '2'
+      console.log(this.movies[index]);
     },
   },
 }
