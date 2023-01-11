@@ -72,18 +72,14 @@
 export default {
   name: 'CardMovie',
   props: {
-    limit: {
-      type: Number,
-      default: 100,
-    },
-    lable: {
-      type: Number,
-      default: null,
-    },
     movies: {
       type: Array,
       default: () => [],
     },
+    limit:{
+      type: Number,
+      default:100
+    }
   },
 
   methods: {
