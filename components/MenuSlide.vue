@@ -148,10 +148,9 @@ export default {
           await this.openNotification(status)
           await this.$store.commit('profile/updateStatusLogin', '')
         }
-      } else {
-        return ''
       }
     },
+  
   },
   methods: {
     onBreakpoint(broken) {

@@ -42,7 +42,7 @@
                 :lg="{ span: 12, offset: 2 }"
               >
                 <a-button
-                v-if="checkLoginIndex !==''"
+                  v-if="checkLoginIndex !== ''"
                   id="btnRedhover"
                   class="add-watchlist"
                   @click="() => (modal2Visible = true)"
@@ -187,7 +187,7 @@ export default {
     dataProfile() {
       return this.$store.state.profile.dataProfile
     },
-    checkLoginIndex(){
+    checkLoginIndex() {
       return this.$store.state.profile.dataProfileIndex
     },
     dataWatchlist() {
@@ -203,7 +203,7 @@ export default {
               this.$store.commit('watchlist/checkShowTrue', i)
             }
           }
-        }else{
+        } else {
           this.$store.commit('watchlist/checkShowTrue', i)
         }
       }
@@ -276,25 +276,30 @@ export default {
     setModal1Visible(modal1Visible) {
       this.modal1Visible = modal1Visible
     },
-    handleSubmit(e) {
+    async handleSubmit(e) {
       e.preventDefault()
-      this.form.validateFields((err, values) => {
+      await this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
-          this.$store.commit('watchlist/addData', values)
+           this.$store.commit('watchlist/addData', values)
+          setTimeout(() => {
+            this.$message.success('ทำการสร้าง Watchlist ใหม่แล้ว')
+          }, 250)
           this.modal1Visible = false
         }
       })
     },
-    addDataMovie(indexList) {
+    async addDataMovie(indexList) {
       const dataAdd = [
         {
           indexListID: `${indexList}`,
         },
       ]
-      dataAdd.push(this.movieDetailAddWatchlist[0])
-      console.log('befor = ', dataAdd)
-      this.$store.commit('watchlist/addMovieToMylist', dataAdd)
+      dataAdd.push(await this.movieDetailAddWatchlist[0])
+      await this.$store.commit('watchlist/addMovieToMylist', dataAdd)
+      setTimeout(() => {
+        this.$message.success('เพิ่มรายการหนังไปยัง Watchlist ที่เลือกแล้ว')
+      }, 200)
     },
   },
 }

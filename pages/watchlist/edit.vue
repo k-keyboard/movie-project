@@ -12,17 +12,15 @@
         <h1>
           Edit your Watchlist
 
-  <a-popconfirm
-    title="Are you sure delete this task?"
-    ok-text="Yes"
-    cancel-text="No"
-    @confirm="confirm"
-    @cancel="cancel"
-  >
-          <a >
-            Delete Watchlist
-          </a>
-</a-popconfirm>
+          <a-popconfirm
+            title="คุณแน่ใจแล้วใช่ไหมที่จะทำการลบรายการนี้?"
+            ok-text="ยืนยัน"
+            cancel-text="ยกเลิก"
+            @confirm="confirm"
+            @cancel="cancel"
+          >
+            <a> Delete Watchlist </a>
+          </a-popconfirm>
         </h1>
         <div id="components-form-demo-vuex">
           <a-form :form="form" @submit="handleSubmit">
@@ -148,7 +146,6 @@ export default {
       const movieNew = []
       if (this.id) {
         const movieIn = this.$store.state.watchlist.dataWatchlist[this.id]
-        console.log('====>', movieIn)
         const dataMovies = movieIn.movies
 
         for (let i = 0; i < dataMovies.length; i++) {
@@ -171,45 +168,48 @@ export default {
   },
   mounted() {
     const id = this.$route.query.watchlistid
-    console.log(id)
     this.dataWatchlistDetail = this.dataWatchlist[id]
-    console.log('list', this.dataWatchlistDetail)
   },
   methods: {
-    confirm(e) {
-      console.log(e);
-      this.$message.success('Click on Yes');
+    async confirm(e) {
+      console.log(e)
+      await this.$message.success('ทำการกดยืนยันลบข้อมูลเรียบร้อย')
       this.deleteWatchlist(this.dataWatchlistDetail.watchlistID)
     },
     cancel(e) {
-      console.log(e);
-      this.$message.error('Click on No');
+      console.log(e)
     },
-    removeDataMovie(indexList) {
+    async removeDataMovie(indexList) {
       const dataRemove = [
         {
           indexMovieID: `${indexList}`,
           indexWatchlistID: `${this.id}`,
         },
       ]
-
-      console.log('befor = ', dataRemove)
-      this.$store.commit('watchlist/removeMovieToMylist', dataRemove)
-      this.$store.commit('watchlist/checkShowFalse', this.id)
-
+      await this.$store.commit('watchlist/removeMovieToMylist', dataRemove)
+      await this.$store.commit('watchlist/checkShowFalse', this.id)
+      await this.$message.success('ทำการแก้ไขข้อมูลของหนังออกจาก Watchlist ที่เลือกแล้ว')
+    },
+    deleteNotification() {
+      this.$notification.open({
+        message: 'ทำการลบข้อมูลสำเร็จ',
+        duration: 2.5,
+      })
     },
     deleteWatchlist(idWatchlist) {
       this.$store.commit('watchlist/deleteData', idWatchlist)
       this.id = ''
       this.$router.push('/')
     },
-    handleSubmit(e) {
+    async handleSubmit(e) {
       e.preventDefault()
-      this.form.validateFieldsAndScroll((err, values) => {
+      await this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
           this.$store.commit('watchlist/updateData', values)
-          // this.$router.push('/watchlist')
+          setTimeout(() => {
+            this.$message.success('ทำการแก้ไขข้อมูลของ Watchlist ที่เลือกแล้ว')
+          }, 500)
         }
       })
     },

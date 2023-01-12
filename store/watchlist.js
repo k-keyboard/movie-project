@@ -40,30 +40,24 @@ export const mutations = {
       !state.dataWatchlist[data[0].indexWatchlist].movies[data[0].indexMovie]
         .lable
 
-    // alert('Checked Watchlist Success')
   },
   updateData(state, object) {
     state.dataWatchlist[object.idList].name = object.name
     state.dataWatchlist[object.idList].description = object.description
-    alert('Update Watchlist Success')
   },
   addMovieToMylist(state, object) {
     state.dataWatchlist[object[0].indexListID].movies.push(object[1])
-    alert('Add Movie to Watchlist Success')
+    
   },
   removeMovieToMylist(state, object) {
-    console.log('data = ', object[0])
     const listData = state.dataWatchlist[object[0].indexWatchlistID].movies
-    console.log('data Detail = ', listData)
     listData.splice(object[0].indexMovieID, 1)
-    alert('remove Movie in Watchlist Success')
   },
   deleteData(state, id) {
     const objWithIdIndex = state.dataWatchlist.findIndex(
       (obj) => obj.watchlistID === id
     )
     state.dataWatchlist.splice(objWithIdIndex, 1)
-    alert('Delete Watchlist Success')
   },
 }
 

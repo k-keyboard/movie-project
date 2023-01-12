@@ -51,26 +51,26 @@ export default {
       movies: [],
     }
   },
-  // mounted() {
-  //   const vm = this
-  //   const axios = require('axios')
-  //   const options = {
-  //     method: 'GET',
-  //     url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-  //     headers: {
-  //       'X-RapidAPI-Key':'5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
-  //       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-  //     },
-  //   }
-  //   axios
-  //     .request(options)
-  //     .then(function (response) {
-  //       vm.movies = response.data
-  //     })
-  //     .catch(function (error) {
-  //       console.error(error)
-  //     })
-  // },
+  mounted() {
+    const vm = this
+    const axios = require('axios')
+    const options = {
+      method: 'GET',
+      url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+      headers: {
+        'X-RapidAPI-Key':'5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    }
+    axios
+      .request(options)
+      .then(function (response) {
+        vm.movies = response.data
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  },
   methods: {
    async onSearch(value) {
       console.log(value)

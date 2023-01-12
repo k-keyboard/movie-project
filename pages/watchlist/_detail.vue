@@ -18,7 +18,7 @@
           <p>About this watchlist</p>
           <small> {{ dataWatchlistDetail.description }} </small>
         </a-row>
-        <a-row id="card-total">
+        <a-row v-if="movies.length>0" id="card-total">
           <a-col :xs="{ span: 12 }" :lg="{ span: 5 }">
             <p align="center">ITEMS ON LIST</p>
             <p align="center">{{ movies.length }}</p>
@@ -97,47 +97,11 @@ export default {
   },
   mounted() {
     const id = this.$route.params.detail
-    console.log(id)
     this.dataWatchlistDetail = this.dataWatchlist[id]
-    console.log('list', this.dataWatchlistDetail)
-
     this.movies = this.movieInWatchlist
-    // const vm = this
-    // const axios = require('axios')
-    // const options = {
-    //   method: 'GET',
-    //   url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-    //   headers: {
-    //     'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
-    //     'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
-    //   },
-    // }
-    // axios
-    //   .request(options)
-    //   .then(function (response) {
-    //     const movieMap = response.data
-    //     const movieNew = []
-    //     for (let i = 0; i < movieMap.length; i++) {
-    //       movieNew.push({
-    //         id: `${movieMap[i].id}`,
-    //         title: `${movieMap[i].title}`,
-    //         year: `${movieMap[i].year}`,
-    //         rating: `${movieMap[i].rating}`,
-    //         image: `${movieMap[i].image}`,
-    //         lable: false,
-    //         index: `${i}`,
-    //       })
-    //     }
-    //     vm.movies = movieNew
-    //     console.log('movie new =', movieNew)
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error)
-    //   })
   },
   methods: {
     changeLable(index) {
-      console.log(index)
       const dataForChange = [
         {
           indexWatchlist: this.id,
@@ -146,7 +110,6 @@ export default {
       ]
       this.$store.commit('watchlist/changeMovieLable', dataForChange)
       this.movies[index].lable = !this.movies[index].lable
-      console.log(this.movies[index])
       this.$store.commit('movies/changeLable', null)
     },
   },
