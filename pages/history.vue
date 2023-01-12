@@ -1,14 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div
-        :style="{
-          padding: '50px 60px',
-          background: '#161616',
-          minHeight: '100vh',
-        }"
-        class="movie-history"
-      >
+      <div v-if="loadingData" class="movie-history">
         <p class="clear-history">
           <a @click="clearHistory">Clear history</a>
         </p>
@@ -16,6 +9,9 @@
         <a-row id="card" type="flex">
           <CardMovie :movies="movies" />
         </a-row>
+      </div>
+      <div v-else class="movie-detail middle-screen">
+        <a-icon type="loading" :style="{ fontSize: '48px', color: '#f33f3f' }" />
       </div>
     </a-layout-content>
   </a-layout>
@@ -27,23 +23,28 @@ export default {
   data() {
     return {
       movies: [],
+      loadingData: false,
+
     }
   },
-  mounted() {
+  async mounted() {
     const vm = this
     const axios = require('axios')
     const options = {
       method: 'GET',
       url: 'https://imdb-top-100-movies.p.rapidapi.com/',
       headers: {
-        'X-RapidAPI-Key':'5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
+        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     }
-    axios
+    await axios
       .request(options)
       .then(function (response) {
         vm.movies = response.data
+        setTimeout(() => {
+          vm.loadingData = true
+        }, 500);
       })
       .catch(function (error) {
         console.error(error)
@@ -64,6 +65,9 @@ export default {
 </script>
 <style scoped>
 @import url('~/assets/css/style.css');
+.movie-history{
+    padding: '50px 60px',
+}
 .movie-history > p {
   font-family: 'Lato';
   font-style: normal;

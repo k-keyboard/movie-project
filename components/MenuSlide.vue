@@ -8,7 +8,6 @@
   >
     <div>
       <div class="banner">Watchlists</div>
-
       <div class="components-input-demo-presuffix">
         <a-input-search
           ref="searchInput"
@@ -150,7 +149,6 @@ export default {
         }
       }
     },
-  
   },
   methods: {
     onBreakpoint(broken) {
@@ -162,9 +160,10 @@ export default {
     handleMenuClick(e) {
       console.log('click', e)
     },
-    onSearch(value) {
+    async onSearch(value) {
       console.log(value)
-      this.$store.commit('search/addInput', value)
+      await this.$router.push('/search')
+      await this.$store.commit('search/addInput', value)
     },
     async logout() {
       const index = await this.$store.state.profile.dataProfileIndex
@@ -207,15 +206,14 @@ export default {
       } else if (type === 'logout') {
         titleNotifi = 'ออกจากระบบแล้ว'
         detailNotifi = 'ทำการออกจากระบบสำเร็จ กำลังกลับไปยังหน้าเข้าสู่ระบบ'
-      }else if (type === 'register') {
+      } else if (type === 'register') {
         titleNotifi = 'สมัครสามชิกสำเร็จ'
         detailNotifi = 'ทำการสมัครสามชิกสำเร็จ กำลังไปยังหน้าเข้าสู่ระบบ'
       }
       await this.$notification.success({
         message: titleNotifi,
         description: detailNotifi,
-      });
-      
+      })
     },
   },
 }

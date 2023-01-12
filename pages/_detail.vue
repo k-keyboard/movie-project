@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div class="movie-detail">
+      <div v-if="loadingData" class="movie-detail">
         <a-row>
           <a-col
             id="image-detail"
@@ -161,8 +161,11 @@
         <p id="related-movies">Related Movies</p>
 
         <a-row id="card" type="flex">
-          <CardMovie :movies="movies" />
+          <CardMovie :movies="movies" :limit="5" />
         </a-row>
+      </div>
+      <div v-else class="movie-detail middle-screen">
+        <a-icon type="loading" :style="{ fontSize: '48px', color: '#f33f3f' }" />
       </div>
     </a-layout-content>
   </a-layout>
@@ -173,6 +176,7 @@ export default {
   components: { CardMovie },
   data() {
     return {
+      loadingData: false,
       id: this.$route.params.detail,
       movieDetail: [],
       movies: [],
@@ -219,9 +223,13 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+      setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    })
     const id = this.$route.params.detail
-
+    const vm = this
     const axios1 = require('axios')
     const options = {
       method: 'GET',
@@ -232,12 +240,11 @@ export default {
       },
     }
 
-    axios1
+    await axios1
       .request(options)
       .then((response) => {
         this.movieDetail = response.data
         console.log(this.movieDetail)
-
         vm.movieDetailAddWatchlist.push({
           id: `${this.movieDetail.id}`,
           title: `${this.movieDetail.title}`,
@@ -246,27 +253,27 @@ export default {
           image: `${this.movieDetail.image}`,
           lable: false,
         })
-
-        console.log('movie add watchlist =', vm.movieDetailAddWatchlist[0])
       })
       .catch(function (error) {
         console.error(error)
       })
 
-    const vm = this
     const axios2 = require('axios')
     const options2 = {
       method: 'GET',
       url: 'https://imdb-top-100-movies.p.rapidapi.com/',
       headers: {
-        'X-RapidAPI-Key': 'a7ec56d375mshe6a438ca0facb1bp1d4a70jsn6a473d45d30c',
+        'X-RapidAPI-Key': '5364e43201msh7e05079eee5843cp14d301jsn99dfbf47e6b6',
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     }
-    axios2
+    await axios2
       .request(options2)
       .then(function (response) {
         vm.movies = response.data
+        setTimeout(() => {
+          vm.loadingData = true
+        }, 5000)
       })
       .catch(function (error) {
         console.error(error)
@@ -281,7 +288,7 @@ export default {
       await this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
-           this.$store.commit('watchlist/addData', values)
+          this.$store.commit('watchlist/addData', values)
           setTimeout(() => {
             this.$message.success('ทำการสร้าง Watchlist ใหม่แล้ว')
           }, 250)
@@ -308,6 +315,11 @@ export default {
 @import url('~/assets/css/style.css');
 .movie-detail {
   padding: 50px 60px;
+}
+.middle-screen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .movie-detail #image-detail {
   margin-right: 45px;

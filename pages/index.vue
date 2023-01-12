@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <div class="movie-content">
+      <div v-if="loadingData" class="movie-content">
         <a-row>
           <a-col :span="24" :offset="0">
             <p>Welcome to <span>Watchlists</span></p>
@@ -38,6 +38,9 @@
           <CardMovie :movies="movies" :limit="5" />
         </a-row>
       </div>
+      <div v-else class="movie-detail middle-screen">
+        <a-icon type="loading" :style="{ fontSize: '48px', color: '#f33f3f' }" />
+      </div>
     </a-layout-content>
   </a-layout>
 </template>
@@ -49,9 +52,15 @@ export default {
   data() {
     return {
       movies: [],
+      loadingData: false,
+
     }
   },
-  mounted() {
+async mounted() {
+    this.$nextTick(()  => {
+      this.$nuxt.$loading.start()
+      setTimeout(() =>  this.$nuxt.$loading.finish(), 500)
+    })
     const vm = this
     const axios = require('axios')
     const options = {
@@ -62,10 +71,13 @@ export default {
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     }
-    axios
+   await axios
       .request(options)
       .then(function (response) {
         vm.movies = response.data
+        setTimeout(() => {
+          vm.loadingData = true
+        }, 500);
       })
       .catch(function (error) {
         console.error(error)

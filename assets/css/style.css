@@ -17,6 +17,11 @@
   background: #161616;
   min-height: 100vh;
 }
+.middle-screen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 ::v-deep .ant-input::placeholder {
   color: rgba(217, 217, 217, 0.3);
   font-family: 'Lato';
