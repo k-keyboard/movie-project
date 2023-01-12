@@ -9,7 +9,21 @@
         }"
         class="watchlist-edit"
       >
-        <h1>Edit your Watchlist <a @click="deleteWatchlist(dataWatchlistDetail.watchlistID)">Delete Watchlist</a></h1>
+        <h1>
+          Edit your Watchlist
+
+  <a-popconfirm
+    title="Are you sure delete this task?"
+    ok-text="Yes"
+    cancel-text="No"
+    @confirm="confirm"
+    @cancel="cancel"
+  >
+          <a >
+            Delete Watchlist
+          </a>
+</a-popconfirm>
+        </h1>
         <div id="components-form-demo-vuex">
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item>
@@ -48,32 +62,31 @@
                 :rows="10"
               />
               <a-input
-              v-decorator="[
-                'idList',
-                {
-                  initialValue: id,
-                },
-              ]"
-              type="hidden"
-            />
+                v-decorator="[
+                  'idList',
+                  {
+                    initialValue: id,
+                  },
+                ]"
+                type="hidden"
+              />
             </a-form-item>
-
-            
 
             <label for="Name">Movie</label>
             <div></div>
-            <span v-for="n in maxList" :key="n">
+            <span v-for="(movie, index) in movieInWatchlist" :key="index">
               <div id="list-movie">
                 <div id="img-card">
-                  <img
-                    src="~/assets/card-images/poster1 1.png"
-                    height="75"
-                    alt=""
-                  />
-                  <font>Top Gun: Maverick (2022)</font>
+                  <img :src="movie.image" height="75" alt="" />
+                  <font>{{ movie.title }} ({{ movie.year }})</font>
                 </div>
                 <div>
-                  <a-button id="remove" type="danger" ghost @click="removeMax">
+                  <a-button
+                    id="remove"
+                    type="danger"
+                    ghost
+                    @click="removeDataMovie(index)"
+                  >
                     Remove
                   </a-button>
                 </div>
@@ -131,6 +144,27 @@ export default {
     dataWatchlist() {
       return this.$store.state.watchlist.dataWatchlist
     },
+    movieInWatchlist() {
+      const movieNew = []
+      if (this.id) {
+        const movieIn = this.$store.state.watchlist.dataWatchlist[this.id]
+        console.log('====>', movieIn)
+        const dataMovies = movieIn.movies
+
+        for (let i = 0; i < dataMovies.length; i++) {
+          movieNew.push({
+            id: `${dataMovies[i].id}`,
+            title: `${dataMovies[i].title}`,
+            year: `${dataMovies[i].year}`,
+            rating: `${dataMovies[i].rating}`,
+            image: `${dataMovies[i].image}`,
+            lable: dataMovies[i].lable,
+            index: `${i}`,
+          })
+        }
+      }
+      return movieNew
+    },
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'register' })
@@ -142,11 +176,32 @@ export default {
     console.log('list', this.dataWatchlistDetail)
   },
   methods: {
-    removeMax() {
-      this.maxList = this.maxList - 1
+    confirm(e) {
+      console.log(e);
+      this.$message.success('Click on Yes');
+      this.deleteWatchlist(this.dataWatchlistDetail.watchlistID)
     },
-    deleteWatchlist(id){
-          this.$store.commit('watchlist/deleteData', id)
+    cancel(e) {
+      console.log(e);
+      this.$message.error('Click on No');
+    },
+    removeDataMovie(indexList) {
+      const dataRemove = [
+        {
+          indexMovieID: `${indexList}`,
+          indexWatchlistID: `${this.id}`,
+        },
+      ]
+
+      console.log('befor = ', dataRemove)
+      this.$store.commit('watchlist/removeMovieToMylist', dataRemove)
+      this.$store.commit('watchlist/checkShowFalse', this.id)
+
+    },
+    deleteWatchlist(idWatchlist) {
+      this.$store.commit('watchlist/deleteData', idWatchlist)
+      this.id = ''
+      this.$router.push('/')
     },
     handleSubmit(e) {
       e.preventDefault()

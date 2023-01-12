@@ -42,6 +42,7 @@
                 :lg="{ span: 12, offset: 2 }"
               >
                 <a-button
+                v-if="checkLoginIndex !==''"
                   id="btnRedhover"
                   class="add-watchlist"
                   @click="() => (modal2Visible = true)"
@@ -186,6 +187,9 @@ export default {
     dataProfile() {
       return this.$store.state.profile.dataProfile
     },
+    checkLoginIndex(){
+      return this.$store.state.profile.dataProfileIndex
+    },
     dataWatchlist() {
       const checkShow = this.$store.state.watchlist.dataWatchlist
       for (let i = 0; i < checkShow.length; i++) {
@@ -199,6 +203,8 @@ export default {
               this.$store.commit('watchlist/checkShowTrue', i)
             }
           }
+        }else{
+          this.$store.commit('watchlist/checkShowTrue', i)
         }
       }
 

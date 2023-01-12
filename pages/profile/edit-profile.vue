@@ -128,7 +128,9 @@ export default {
         return { name: 'Michael', email: 'test@test.com', password: '123456' }
       }
     },
+    
   },
+  
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'register' })
   },
@@ -139,7 +141,8 @@ export default {
         if (!err) {
           console.log('Received values of form: ', values)
           this.$store.commit('profile/updateData', values)
-          this.$router.push('/profile/edit-profile')
+          this.$store.commit('profile/updateStatusLogin', 'update')
+          
         }
       })
     },
@@ -150,8 +153,10 @@ export default {
     logout() {
       const index = this.$store.state.profile.dataProfileIndex
       this.$store.commit('profile/updateLogout', index)
+      this.$store.commit('profile/updateStatusLogin', 'logout')
       this.$router.push('/profile')
     },
+    
   },
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout >
     <a-layout-content>
       <div class="movie-search">
         <p class="clear-history">Search Results: {{ searchTitleMovie }}</p>
@@ -23,18 +23,19 @@ export default {
     searchTitleMovie() {
       return this.$store.state.search.textSearch
     },
+    check(){
+      return this.$store.state.search.check
+    }
   },
   watch: {
     searchTitleMovie(newSearchTitleMovie, oldSearchTitleMovie) {
       this.searchMovie()
     },
+    
+      
+    
   },
-  mounted() {},
-
   methods: {
-    viewDetail(id) {
-      this.$router.push('/' + id)
-    },
     searchMovie() {
       const vm = this
       const axios = require('axios')
@@ -51,14 +52,9 @@ export default {
         .request(options)
         .then(function (response) {
           const movieAll = response.data
-          console.log(movieAll)
           const movieSearch = movieAll.filter((movie) =>
             movie.title.includes(vm.searchTitleMovie)
           )
-          console.log('search list total', movieSearch.length)
-          console.log('search value = ', vm.searchTitleMovie)
-
-          console.log(movieSearch);
           vm.movies = movieSearch
         })
         .catch(function (error) {

@@ -4,15 +4,15 @@ export const state = () => ({
       name: 'Test Watchlist 01',
       description: 'test system list data Watchlist',
       watchlistID: '123456',
-      movies:[],
-      show:true
+      movies: [],
+      show: true,
     },
     {
       name: 'Test Watchlist 02',
       description: 'test system list data Watchlist',
       watchlistID: '123456',
-      movies:[],
-      show:true
+      movies: [],
+      show: true,
     },
   ],
 })
@@ -23,21 +23,24 @@ export const mutations = {
       name: object.name,
       description: object.description,
       watchlistID: Math.random().toString().slice(2, 11),
-      movies:[],
-      show:true
+      movies: [],
+      show: true,
     })
   },
-  checkShowFalse(state, id){
+  checkShowFalse(state, id) {
     state.dataWatchlist[id].show = false
   },
-  checkShowTrue(state, id){
+  checkShowTrue(state, id) {
     state.dataWatchlist[id].show = true
   },
   changeMovieLable(state, data) {
-    state.dataWatchlist[data[0].indexWatchlist].movies[data[0].indexMovie].lable = !state.dataWatchlist[data[0].indexWatchlist].movies[data[0].indexMovie].lable
+    state.dataWatchlist[data[0].indexWatchlist].movies[
+      data[0].indexMovie
+    ].lable =
+      !state.dataWatchlist[data[0].indexWatchlist].movies[data[0].indexMovie]
+        .lable
 
     // alert('Checked Watchlist Success')
-
   },
   updateData(state, object) {
     state.dataWatchlist[object.idList].name = object.name
@@ -45,10 +48,15 @@ export const mutations = {
     alert('Update Watchlist Success')
   },
   addMovieToMylist(state, object) {
-    console.log('OBJ = ',object);
     state.dataWatchlist[object[0].indexListID].movies.push(object[1])
     alert('Add Movie to Watchlist Success')
-    console.log('add = ',state.dataWatchlist[object.indexListID]);
+  },
+  removeMovieToMylist(state, object) {
+    console.log('data = ', object[0])
+    const listData = state.dataWatchlist[object[0].indexWatchlistID].movies
+    console.log('data Detail = ', listData)
+    listData.splice(object[0].indexMovieID, 1)
+    alert('remove Movie in Watchlist Success')
   },
   deleteData(state, id) {
     const objWithIdIndex = state.dataWatchlist.findIndex(

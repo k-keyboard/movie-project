@@ -7,7 +7,7 @@
           Please log in or create an account <br />
           to use the features of this app
         </h1>
-        
+
         <div id="components-form-demo-vuex">
           <a-form
             id="components-form-demo-normal-login"
@@ -82,29 +82,22 @@ export default {
     dataProfile() {
       return this.$store.state.profile.dataProfile
     },
-    statusLogin() {
-      return this.$store.state.profile.statusLogin
-    },
+    
   },
-  watch: {
-    statusLogin(newstatusLogin, oldstatusLogin) {
-      this.openNotificationWithIcon(this.statusLogin)
-    },
-  },
+  
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
 
   methods: {
-    handleSubmit(e) {
+    async handleSubmit(e) {
       e.preventDefault()
-      this.form.validateFields((err, values) => {
+      await this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
 
           // login
           const dataLogins = this.dataProfile
-
           const loginCheck = dataLogins.filter(
             (dataLogin) => dataLogin.email === values.email
           )
@@ -121,8 +114,10 @@ export default {
             console.log('have email in store and index =', dataProfileID)
             if (values.password === this.dataProfile[dataProfileID].password) {
               this.$store.commit('profile/updateLogin', dataProfileID)
-              this.$router.push('/')
               this.$store.commit('profile/updateStatusLogin', 'success')
+              setTimeout(() => {
+                this.$router.push('/')
+              }, 1000)
             } else {
               this.$store.commit('profile/updateStatusLogin', 'warning')
             }
@@ -133,13 +128,7 @@ export default {
         }
       })
     },
-    openNotificationWithIcon(type) {
-      this.$notification[type]({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-      })
-    },
+    
   },
 }
 </script>

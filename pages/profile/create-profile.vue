@@ -130,7 +130,10 @@ export default {
         if (!err) {
           console.log('Received values of form: ', values)
           this.$store.commit('profile/addData', values)
-          this.$router.push('/profile')
+          this.$store.commit('profile/updateStatusLogin', 'register')
+          setTimeout(() => {
+            this.$router.push('/profile')
+          }, 1000)
         }
       })
     },

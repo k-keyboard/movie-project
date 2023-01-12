@@ -14,7 +14,6 @@
           ref="searchInput"
           placeholder="Search"
           @search="onSearch"
-          @keydown.enter="$router.push('/search')"
         >
           <a-icon
             slot="prefix"
@@ -35,7 +34,7 @@
           <span class="nav-text">History</span>
         </a-menu-item>
         <a-button
-        v-if="dataLogin !== 0"
+          v-if="dataLogin !== 0"
           id="btnRedhover"
           block
           size="large"
@@ -47,17 +46,17 @@
       <div v-if="dataLogin !== 0" class="my-list">
         <hr />
         <p>My Lists</p>
-        <div >
+        <div>
           <a-button
-          v-for="(watchlist, index) in dataWatchlist"
-          :key="index"
+            v-for="(watchlist, index) in dataWatchlist"
+            :key="index"
             ghost
             block
             size="large"
-            @click="$router.push('/watchlist/'+ index)"
+            @click="$router.push('/watchlist/' + index)"
           >
             <img src="~/assets/icon-button/Group 64.svg" alt="" />
-            {{watchlist.name}}
+            {{ watchlist.name }}
           </a-button>
         </div>
       </div>
@@ -66,7 +65,12 @@
       <a-row type="flex">
         <div id="components-dropdown-demo-placement" class="btn-profile">
           <a-dropdown-button @click="handleButtonClick">
-            <img v-if="dataLogin !== 0" src="~/assets/icon-button/Ellipse 6.svg" height="32" alt="" />
+            <img
+              v-if="dataLogin !== 0"
+              src="~/assets/icon-button/Ellipse 6.svg"
+              height="32"
+              alt=""
+            />
             <img v-else src="~/assets/icon-button/32.svg" alt="" />
             <span v-if="dataLogin !== 0">
               {{ dataLogin.name }}
@@ -125,6 +129,29 @@ export default {
         return 0
       }
     },
+    statusLogin() {
+      return this.$store.state.profile.statusLogin
+    },
+  },
+  watch: {
+    async statusLogin(newstatusLogin, oldstatusLogin) {
+      const status = this.statusLogin
+      if (status !== '') {
+        if (
+          status === 'success' ||
+          status === 'warning' ||
+          status === 'error'
+        ) {
+          await this.openNotificationWithIcon(status)
+          await this.$store.commit('profile/updateStatusLogin', '')
+        } else {
+          await this.openNotification(status)
+          await this.$store.commit('profile/updateStatusLogin', '')
+        }
+      } else {
+        return ''
+      }
+    },
   },
   methods: {
     onBreakpoint(broken) {
@@ -140,10 +167,56 @@ export default {
       console.log(value)
       this.$store.commit('search/addInput', value)
     },
-    logout() {
-      const index = this.$store.state.profile.dataProfileIndex
-      this.$store.commit('profile/updateLogout', index)
-      this.$router.push('/profile')
+    async logout() {
+      const index = await this.$store.state.profile.dataProfileIndex
+      await this.$store.commit('profile/updateLogout', index)
+      await this.$store.commit('profile/updateStatusLogin', 'logout')
+      setTimeout(() => {
+        this.$router.push('/profile')
+      }, 2000)
+    },
+    async openNotificationWithIcon(type) {
+      console.log(type)
+      let detailNotifi = ''
+      let titleNotifi = ''
+
+      if (type === 'success') {
+        titleNotifi = 'สำเร็จ'
+        detailNotifi = 'ข้อมูลในการยืนยันตัวตนถูกต้อง เข้าสู่ระบบสำเร็จ'
+      } else if (type === 'warning') {
+        titleNotifi = 'พบข้อผิดพลาด'
+        detailNotifi =
+          'ข้อมูลในการยืนยันตัวตนผิดพลาด โปรดตวจสอบรหัสผ่านอีกครั้ง '
+      } else if (type === 'error') {
+        titleNotifi = 'ไม่พบข้อมูล'
+        detailNotifi =
+          'ไม่พบข้อมูลในการยืนยันตัวตนนี้ โปรดตวจสอบอีเมลและรหัสผ่านอีกครั้ง '
+      }
+      await this.$notification[type]({
+        message: titleNotifi,
+        description: detailNotifi,
+      })
+    },
+    async openNotification(type) {
+      console.log('type2 = ', type)
+      let detailNotifi = ''
+      let titleNotifi = ''
+
+      if (type === 'update') {
+        titleNotifi = 'เข้าสู่ระบบสำเร็จ'
+        detailNotifi = 'แก้ไขข้อมูลที่ต้องการสำเร็จ'
+      } else if (type === 'logout') {
+        titleNotifi = 'ออกจากระบบแล้ว'
+        detailNotifi = 'ทำการออกจากระบบสำเร็จ กำลังกลับไปยังหน้าเข้าสู่ระบบ'
+      }else if (type === 'register') {
+        titleNotifi = 'สมัครสามชิกสำเร็จ'
+        detailNotifi = 'ทำการสมัครสามชิกสำเร็จ กำลังไปยังหน้าเข้าสู่ระบบ'
+      }
+      await this.$notification.success({
+        message: titleNotifi,
+        description: detailNotifi,
+      });
+      
     },
   },
 }

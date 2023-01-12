@@ -19,7 +19,6 @@ export const mutations = {
     state.dataProfile[state.dataProfileIndex].name = object.name
     state.dataProfile[state.dataProfileIndex].email = object.email
     state.dataProfile[state.dataProfileIndex].password = object.password
-    alert('Update Profile Success')
   },
   updateLogin(state, i) {
     state.dataProfile[i].loginStatus = true
