@@ -12,6 +12,8 @@
 .movie-content,
 .create-profile,
 .edit-profile,
+.watchlist-edit,
+.watchlist-create,
 .login {
   width: 100%;
   background: #161616;
@@ -30,4 +32,14 @@
 }
 ::v-deep span.ant-input-prefix > i > svg {
   font-size: 21px;
+}
+.bg-gray{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 320px;
+  right: 0;
+  z-index: 999;
+  
+  background: rgba(90, 90, 90, .5);
 }

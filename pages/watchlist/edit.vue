@@ -4,8 +4,6 @@
       <div
         :style="{
           padding: '50px 60px 50px 23px',
-          background: '#161616',
-          minHeight: '100vh',
         }"
         class="watchlist-edit"
       >
@@ -102,6 +100,9 @@
           </a-form>
         </div>
       </div>
+      <div v-show="clickDeleteLoad" class="bg-gray middle-screen">
+        <a-icon type="loading" :style="{ fontSize: '48px', color: '#f33f3f' }" />
+      </div>
     </a-layout-content>
   </a-layout>
 </template>
@@ -109,6 +110,7 @@
 export default {
   data() {
     return {
+      clickDeleteLoad:false,
       id: this.$route.query.watchlistid,
       dataWatchlistDetail: [],
       maxList: 3,
@@ -173,8 +175,10 @@ export default {
   methods: {
     async confirm(e) {
       console.log(e)
+      this.clickDeleteLoad = true
       await this.$message.success('ทำการกดยืนยันลบข้อมูลเรียบร้อย')
       this.deleteWatchlist(this.dataWatchlistDetail.watchlistID)
+      
     },
     cancel(e) {
       console.log(e)
@@ -193,7 +197,7 @@ export default {
     deleteNotification() {
       this.$notification.open({
         message: 'ทำการลบข้อมูลสำเร็จ',
-        duration: 2.5,
+        duration: 1.5,
       })
     },
     deleteWatchlist(idWatchlist) {

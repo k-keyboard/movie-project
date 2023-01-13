@@ -4,8 +4,7 @@
       <div
         :style="{
           padding: '50px 60px 50px 23px',
-          background: '#161616',
-          minHeight: '100vh',
+          
         }"
         class="watchlist-create"
       >
@@ -53,6 +52,9 @@
           </a-form>
         </div>
       </div>
+      <div v-show="clickLoad" class="bg-gray middle-screen">
+        <a-icon type="loading" :style="{ fontSize: '48px', color: '#f33f3f' }" />
+      </div>
     </a-layout-content>
   </a-layout>
 </template>
@@ -60,6 +62,7 @@
 export default {
   data() {
     return {
+      clickLoad:false,
       confirmDirty: false,
       autoCompleteResult: [],
       formItemLayout: {
@@ -90,13 +93,17 @@ export default {
     this.form = this.$form.createForm(this, { name: 'register' })
   },
   methods: {
-    handleSubmit(e) {
+    async handleSubmit(e) {
       e.preventDefault()
-      this.form.validateFieldsAndScroll((err, values) => {
+      await this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
           this.$store.commit('watchlist/addData', values)
-          this.$router.push('/watchlist')
+          this.$message.success('ทำการเพิ่มข้อมูล Watchlist ใหม่แล้ว')
+          this.clickLoad = true
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000);
         }
       })
     },
