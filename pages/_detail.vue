@@ -56,7 +56,7 @@
                   centered
                   @ok="() => (modal2Visible = false)"
                 >
-                  <p>
+                  <p class="modal-title-watchlist">
                     Add Movie:
                     <span>{{ movieDetail.title }}</span>
                   </p>
@@ -488,7 +488,7 @@ export default {
   font-weight: 700;
   color: #e1e1e1;
 }
-::v-deep .ant-modal-body > p {
+::v-deep .ant-modal-body > p:not(.modal-title-watchlist) {
   font-size: 16px;
   line-height: 19px;
   display: grid;
